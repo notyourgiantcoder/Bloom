@@ -1,6 +1,6 @@
 export default function FeaturesStrip() {
   return (
-    <section className="py-24 px-margin-mobile md:px-margin-desktop bg-surface max-w-container-max mx-auto rounded-[2rem] my-12 border border-outline-variant/30">
+    <section id="features" className="py-24 px-margin-mobile md:px-margin-desktop bg-surface max-w-container-max mx-auto rounded-[2rem] my-12 border border-outline-variant/30">
       <div className="text-center mb-16 max-w-2xl mx-auto">
         <span className="font-label-md text-label-md text-primary tracking-widest uppercase mb-4 block">The Toolkit</span>
         <h2 className="font-headline-md text-headline-md text-on-surface">Everything you need to distill complex knowledge.</h2>

@@ -27,19 +27,19 @@ export default function SideNavBar() {
             <span className="material-symbols-outlined" data-icon="school">school</span>
             Courses
           </Link>
-          <Link href="/dashboard" className="flex items-center gap-3 text-on-primary/70 dark:text-on-primary-container/70 px-4 py-3 font-label-md text-label-md rounded-r-lg border-l-4 border-transparent hover:bg-on-primary-fixed-variant/20 hover:text-on-primary transition-all">
+          <Link href="/dashboard/ai-studio" className="flex items-center gap-3 text-on-primary/70 dark:text-on-primary-container/70 px-4 py-3 font-label-md text-label-md rounded-r-lg border-l-4 border-transparent hover:bg-on-primary-fixed-variant/20 hover:text-on-primary transition-all">
             <span className="material-symbols-outlined" data-icon="auto_awesome">auto_awesome</span>
             AI Studio
           </Link>
-          <Link href="/dashboard" className="flex items-center gap-3 text-on-primary/70 dark:text-on-primary-container/70 px-4 py-3 font-label-md text-label-md rounded-r-lg border-l-4 border-transparent hover:bg-on-primary-fixed-variant/20 hover:text-on-primary transition-all">
+          <Link href="/dashboard/community" className="flex items-center gap-3 text-on-primary/70 dark:text-on-primary-container/70 px-4 py-3 font-label-md text-label-md rounded-r-lg border-l-4 border-transparent hover:bg-on-primary-fixed-variant/20 hover:text-on-primary transition-all">
             <span className="material-symbols-outlined" data-icon="groups">groups</span>
             Community
           </Link>
-          <Link href="/dashboard" className="flex items-center gap-3 text-on-primary/70 dark:text-on-primary-container/70 px-4 py-3 font-label-md text-label-md rounded-r-lg border-l-4 border-transparent hover:bg-on-primary-fixed-variant/20 hover:text-on-primary transition-all">
+          <Link href="/dashboard/analytics" className="flex items-center gap-3 text-on-primary/70 dark:text-on-primary-container/70 px-4 py-3 font-label-md text-label-md rounded-r-lg border-l-4 border-transparent hover:bg-on-primary-fixed-variant/20 hover:text-on-primary transition-all">
             <span className="material-symbols-outlined" data-icon="analytics">analytics</span>
             Analytics
           </Link>
-          <Link href="/dashboard" className="flex items-center gap-3 text-on-primary/70 dark:text-on-primary-container/70 px-4 py-3 font-label-md text-label-md rounded-r-lg border-l-4 border-transparent hover:bg-on-primary-fixed-variant/20 hover:text-on-primary transition-all">
+          <Link href="/dashboard/settings" className="flex items-center gap-3 text-on-primary/70 dark:text-on-primary-container/70 px-4 py-3 font-label-md text-label-md rounded-r-lg border-l-4 border-transparent hover:bg-on-primary-fixed-variant/20 hover:text-on-primary transition-all">
             <span className="material-symbols-outlined" data-icon="settings">settings</span>
             Settings
           </Link>
@@ -50,7 +50,7 @@ export default function SideNavBar() {
             <span className="material-symbols-outlined text-[18px]">add</span>
             New Project
           </button>
-          <Link href="/dashboard" className="flex items-center gap-3 text-on-primary/70 dark:text-on-primary-container/70 py-2 font-label-md text-label-md hover:text-on-primary transition-colors">
+          <Link href="/creator/rostova" className="flex items-center gap-3 text-on-primary/70 dark:text-on-primary-container/70 py-2 font-label-md text-label-md hover:text-on-primary transition-colors">
             <span className="material-symbols-outlined" data-icon="account_circle">account_circle</span>
             Profile
           </Link>

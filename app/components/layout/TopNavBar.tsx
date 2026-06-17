@@ -9,16 +9,16 @@ export default function TopNavBar() {
             Bloom <span className="text-[10px] bg-secondary/10 text-secondary px-1.5 py-0.5 rounded align-top ml-1 font-normal tracking-normal uppercase">v1.1</span>
           </Link>
           <div className="hidden md:flex items-center gap-6">
-            <Link href="/" className="font-label-md text-label-md text-on-surface-variant dark:text-outline-variant hover:text-primary dark:hover:text-primary-fixed transition-colors">
+            <Link href="/#features" className="font-label-md text-label-md text-on-surface-variant dark:text-outline-variant hover:text-primary dark:hover:text-primary-fixed transition-colors">
               Features
             </Link>
-            <Link href="/" className="font-label-md text-label-md text-on-surface-variant dark:text-outline-variant hover:text-primary dark:hover:text-primary-fixed transition-colors">
+            <Link href="/courses/anatomy" className="font-label-md text-label-md text-on-surface-variant dark:text-outline-variant hover:text-primary dark:hover:text-primary-fixed transition-colors">
               MediLab
             </Link>
-            <Link href="/" className="font-label-md text-label-md text-on-surface-variant dark:text-outline-variant hover:text-primary dark:hover:text-primary-fixed transition-colors">
+            <Link href="/pricing" className="font-label-md text-label-md text-on-surface-variant dark:text-outline-variant hover:text-primary dark:hover:text-primary-fixed transition-colors">
               Pricing
             </Link>
-            <Link href="/" className="font-label-md text-label-md text-on-surface-variant dark:text-outline-variant hover:text-primary dark:hover:text-primary-fixed transition-colors">
+            <Link href="/dashboard" className="font-label-md text-label-md text-on-surface-variant dark:text-outline-variant hover:text-primary dark:hover:text-primary-fixed transition-colors">
               For Creators
             </Link>
           </div>

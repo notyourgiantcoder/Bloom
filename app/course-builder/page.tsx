@@ -20,9 +20,9 @@ export default function CourseBuilderPage() {
           </div>
           {/* Global Nav Context */}
           <nav className="hidden md:flex gap-8 items-center font-label-md text-label-md">
-            <Link href="/" className="text-on-surface-variant hover:text-primary transition-colors">Features</Link>
-            <Link href="/" className="text-on-surface-variant hover:text-primary transition-colors">MediLab</Link>
-            <Link href="/" className="text-on-surface-variant hover:text-primary transition-colors">Pricing</Link>
+            <Link href="/#features" className="text-on-surface-variant hover:text-primary transition-colors">Features</Link>
+            <Link href="/courses/anatomy" className="text-on-surface-variant hover:text-primary transition-colors">MediLab</Link>
+            <Link href="/pricing" className="text-on-surface-variant hover:text-primary transition-colors">Pricing</Link>
             <Link href="/dashboard" className="text-primary border-b-2 border-secondary pb-1 opacity-80 transition-opacity">For Creators</Link>
           </nav>
           {/* Actions */}
