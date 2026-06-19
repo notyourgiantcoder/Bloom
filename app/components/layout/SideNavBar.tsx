@@ -9,7 +9,7 @@ export default function SideNavBar() {
         {/* Header / Brand */}
         <div className="px-6 mb-8 flex items-center gap-3">
           <div className="w-10 h-10 rounded-full bg-surface-container-lowest overflow-hidden flex items-center justify-center">
-             <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuB3jF8YVypIaO5ukcmOo6FHkJ0pAjX81Dee485kU_uXHlMZuuV7P82ZAGlocfbCQTCp_nYTO9Q8hIahYF6cBsCD6fDQrvbgXiO4iZUJxC4Y4C6fU3r-eZ5uXZaO4gXHE6p7b_cZ4YpDrbnVLebS_5lzCdpxGuYCkp7npX4rJf_JUjLc-GGtMhNx0Fw8Yc1_nCcW1TsUrthPHY71E6ncrtmWs3dVb0ob-xG8BUSCCvs6X-DBZnDodgA-rRI2U36FKCjPlAgGKJu6Iws" alt="Workspace Avatar" className="w-full h-full object-cover" />
+             <Image src="https://lh3.googleusercontent.com/aida-public/AB6AXuB3jF8YVypIaO5ukcmOo6FHkJ0pAjX81Dee485kU_uXHlMZuuV7P82ZAGlocfbCQTCp_nYTO9Q8hIahYF6cBsCD6fDQrvbgXiO4iZUJxC4Y4C6fU3r-eZ5uXZaO4gXHE6p7b_cZ4YpDrbnVLebS_5lzCdpxGuYCkp7npX4rJf_JUjLc-GGtMhNx0Fw8Yc1_nCcW1TsUrthPHY71E6ncrtmWs3dVb0ob-xG8BUSCCvs6X-DBZnDodgA-rRI2U36FKCjPlAgGKJu6Iws" alt="Workspace Avatar" width={40} height={40} className="w-full h-full object-cover" />
           </div>
           <div>
             <h2 className="text-headline-sm font-headline-sm text-on-primary leading-none">Creator Workspace</h2>

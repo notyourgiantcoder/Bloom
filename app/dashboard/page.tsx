@@ -181,7 +181,7 @@ export default function DashboardPage() {
           {/* Course Card 1 */}
           <div className="bg-surface-container-lowest border border-[#E8E0D5] rounded-xl shadow-[0_1px_4px_rgba(26,46,46,0.06)] min-w-[300px] w-[300px] flex-shrink-0 snap-start overflow-hidden flex flex-col">
             <div className="h-40 bg-surface-container relative">
-              <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDispiJPbDJIhB3B_TgU2vxjcIJBexf3ORBO7qIKHGdS5meFxyGhn4yvN-P4mpblyP7R0vLFsHpuIjFWu80BqhhWC2o55HA-WSOAATxYEsVb9opUnHT7juADmT0QT4jrXajnONMKwRtyJ-NcubJ8crbfNjevW12VP-9VfQpDLafhifko5g-ZLHp2kDSMvfRE94PFWqdtxwUPC2TYUkjRue5Y7NvFX0GQiBgc7SKEIVZ2X7jVlt5GS1zN3g9f4KBul8nezQJ9lbYFbA" alt="Clinical Anatomy Course" className="w-full h-full object-cover" />
+              <Image src="https://lh3.googleusercontent.com/aida-public/AB6AXuDispiJPbDJIhB3B_TgU2vxjcIJBexf3ORBO7qIKHGdS5meFxyGhn4yvN-P4mpblyP7R0vLFsHpuIjFWu80BqhhWC2o55HA-WSOAATxYEsVb9opUnHT7juADmT0QT4jrXajnONMKwRtyJ-NcubJ8crbfNjevW12VP-9VfQpDLafhifko5g-ZLHp2kDSMvfRE94PFWqdtxwUPC2TYUkjRue5Y7NvFX0GQiBgc7SKEIVZ2X7jVlt5GS1zN3g9f4KBul8nezQJ9lbYFbA" alt="Clinical Anatomy Course" width={300} height={160} className="w-full h-full object-cover" unoptimized />
               <div className="absolute top-3 right-3 bg-surface-container-lowest/90 backdrop-blur-sm px-2 py-1 rounded font-label-sm text-label-sm text-primary">Active</div>
             </div>
             <div className="p-4 flex-1 flex flex-col">
@@ -204,7 +204,7 @@ export default function DashboardPage() {
           {/* Course Card 2 */}
           <div className="bg-surface-container-lowest border border-[#E8E0D5] rounded-xl shadow-[0_1px_4px_rgba(26,46,46,0.06)] min-w-[300px] w-[300px] flex-shrink-0 snap-start overflow-hidden flex flex-col">
             <div className="h-40 bg-surface-container relative">
-              <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuB3AXe47wxvkGn83Lv0zMr6z8_9sdpe_SIJdwEBbauR4hnEM4lDzO1GpNBhH6q6dqihCEkMlCGX1AFgUSUMPoOj8kYoVDA4AeCjSIFqMJTTf4A4Xuka_jAv5QS57aHHkzTXZPavTxzPIRWFT376xtB8_BzSNGALY9_xM2naJt6q5eGmolo_J35JVP4ZY1Zjf2s0AtogHseujQPhWfiSb7VyLp3EzGOmg3-629HR07jPZAMMTCCxXeJVis7dlCpeS3JN_D4AKYCRDVE" alt="Pharmacology Course" className="w-full h-full object-cover" />
+              <Image src="https://lh3.googleusercontent.com/aida-public/AB6AXuB3AXe47wxvkGn83Lv0zMr6z8_9sdpe_SIJdwEBbauR4hnEM4lDzO1GpNBhH6q6dqihCEkMlCGX1AFgUSUMPoOj8kYoVDA4AeCjSIFqMJTTf4A4Xuka_jAv5QS57aHHkzTXZPavTxzPIRWFT376xtB8_BzSNGALY9_xM2naJt6q5eGmolo_J35JVP4ZY1Zjf2s0AtogHseujQPhWfiSb7VyLp3EzGOmg3-629HR07jPZAMMTCCxXeJVis7dlCpeS3JN_D4AKYCRDVE" alt="Pharmacology Course" width={300} height={160} className="w-full h-full object-cover" unoptimized />
               <div className="absolute top-3 right-3 bg-surface-container-lowest/90 backdrop-blur-sm px-2 py-1 rounded font-label-sm text-label-sm text-primary">Active</div>
             </div>
             <div className="p-4 flex-1 flex flex-col">

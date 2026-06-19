@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 import Image from "next/image";
 import TopNavBar from "../../components/layout/TopNavBar";
 
@@ -52,10 +51,12 @@ export default function StudentLearningPage() {
           {/* Video Player Placeholder */}
           <div className="relative w-full aspect-video bg-surface-container rounded-xl border border-outline-variant/30 overflow-hidden group shadow-sm">
             {/* Video Poster Image */}
-            <img 
+            <Image 
               alt="Video Poster" 
-              className="w-full h-full object-cover"
+              fill
+              className="object-cover"
               src="https://lh3.googleusercontent.com/aida-public/AB6AXuBU-aGIzVCGOiIw6hcQlchAuabsCh11N186TlIRD2pnbpI6qEoanxuR1yOpIALsxwOR-4ICFas961JupGTCPM1CVavy5FgTsNTCgkKsY8S__xz7q4SDrRtGlz7h49Ogqs6rRAwjsd22TtJQT4OKS3MYs5FBDk-ECGQR5pfJ8m-0Ola3reE1dgHdryXY6-ybFSPKDEB5uru3dSY6h_rsE-XhXuVWV31SB2TfPPKcc2j-gQ0AFF7AHxtfeUIojNumuxv77cO3V8vJYCo"
+              unoptimized
             />
             
             {/* Play Button Overlay */}
@@ -115,10 +116,13 @@ export default function StudentLearningPage() {
               </div>
               
               <div className="flex items-center gap-3 bg-surface-container border border-outline-variant/30 rounded-full py-2 px-4 shadow-sm shrink-0">
-                <img 
+                <Image 
                   alt="Creator Avatar" 
+                  width={32}
+                  height={32}
                   className="w-8 h-8 rounded-full border border-outline-variant/30"
                   src="https://lh3.googleusercontent.com/aida-public/AB6AXuDh2uek-1i7b3oNTPq7rUoiG8P44iOBcVgqrSOk2vyn8jF_GHMvPUTKbP-ugFLmFeAdiCwXE1hIFnHY95fKEjkeLLjrwx-r44739l6KJk9ZVTwLhxd_Op6bNAxVMqYgV1fOThKvB3W-OHG56epPozHm5LvwpHYmPsAjPOgRoENEDfuKRKFnS3ipEkDbHDyE3Pnsm6Lwcnh8ZCcMR20TLnFtT1ti41WPq-z0l2v3txB3on6WvhybTev0RvtQR5-HWJGT3bfUz9sVjdQ"
+                  unoptimized
                 />
                 <div className="flex flex-col">
                   <span className="font-label-sm text-label-sm text-on-surface font-semibold leading-tight">Elena Rostova</span>

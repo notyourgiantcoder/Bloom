@@ -11,7 +11,15 @@ export default function SignInPage() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(() => {
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      if (params.get("error") === "auth_callback_error") {
+        return "Google sign-in failed. Please try again.";
+      }
+    }
+    return null;
+  });
   const [loading, setLoading] = useState(false);
   const [googleLoading, setGoogleLoading] = useState(false);
 
@@ -25,14 +33,6 @@ export default function SignInPage() {
     };
     document.addEventListener("mousemove", handleMouseMove);
     return () => document.removeEventListener("mousemove", handleMouseMove);
-  }, []);
-
-  // Read error from URL params (e.g. after OAuth callback failure)
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    if (params.get("error") === "auth_callback_error") {
-      setError("Google sign-in failed. Please try again.");
-    }
   }, []);
 
   const handleEmailSignIn = async (e: React.FormEvent<HTMLFormElement>) => {

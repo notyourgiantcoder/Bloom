@@ -45,10 +45,12 @@ export default function CreatorPublicProfilePage() {
         <section className="relative w-full rounded-xl overflow-hidden bg-surface-container-lowest border border-outline-variant/30 shadow-sm card-shadow">
           {/* Cover Image / Gradient */}
           <div className="h-48 md:h-64 w-full bg-gradient-to-r from-surface-variant to-tertiary-fixed opacity-85 relative">
-            <img 
+            <Image 
               alt="Cover Image" 
-              className="w-full h-full object-cover mix-blend-overlay"
+              fill
+              className="object-cover mix-blend-overlay"
               src="https://lh3.googleusercontent.com/aida-public/AB6AXuDmpEqz32pQpXFmeNV11FENe_1G6QhJhJTXhtGsDGQweLACkmkk6JG-IQj00vGUU4pzoCacxcb8zv-VCgTcY24bePbJQdmS2jcLgJm908jlK9rrmEIp3UwIGKBJZo3OF-IBZWRZ33O1ziTBvR7fVYyNsaF1cGHYxkQRpb_KvctuB3FqsHqQ6_WEHoVoTvkmJkLe6Wxrw9WGpnJcP3MYzr6g-MV3NWeS8_5hlAqCb32r9AKjo-S_CVXSo8UBNX6pO3FGWbJ402MwDUc"
+              unoptimized
             />
           </div>
           
@@ -56,10 +58,13 @@ export default function CreatorPublicProfilePage() {
           <div className="p-6 md:p-8 flex flex-col md:flex-row gap-6 md:items-end -mt-16 md:-mt-20 relative z-20">
             {/* Avatar Photo */}
             <div className="w-32 h-32 md:w-36 md:h-36 rounded-full overflow-hidden border-4 border-outline-variant/30 bg-surface-container shadow-md shrink-0">
-              <img 
+              <Image 
                 alt="Elena Rostova" 
+                width={144}
+                height={144}
                 className="w-full h-full object-cover" 
                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuDh2uek-1i7b3oNTPq7rUoiG8P44iOBcVgqrSOk2vyn8jF_GHMvPUTKbP-ugFLmFeAdiCwXE1hIFnHY95fKEjkeLLjrwx-r44739l6KJk9ZVTwLhxd_Op6bNAxVMqYgV1fOThKvB3W-OHG56epPozHm5LvwpHYmPsAjPOgRoENEDfuKRKFnS3ipEkDbHDyE3Pnsm6Lwcnh8ZCcMR20TLnFtT1ti41WPq-z0l2v3txB3on6WvhybTev0RvtQR5-HWJGT3bfUz9sVjdQ"
+                unoptimized
               />
             </div>
             
@@ -126,10 +131,13 @@ export default function CreatorPublicProfilePage() {
                 {/* Course 1 */}
                 <div className="group bg-surface-container-lowest border border-outline-variant/30 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 flex flex-col h-full">
                   <div className="aspect-video relative overflow-hidden bg-surface-dim">
-                    <img 
+                    <Image 
                       alt="Visual Storytelling Masterclass" 
+                      width={800}
+                      height={450}
                       className="w-full h-full object-cover transition-transform duration-750 group-hover:scale-105"
                       src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                      unoptimized
                     />
                     <span className="absolute top-3 left-3 bg-secondary text-on-secondary font-label-sm text-[10px] px-2.5 py-0.5 rounded-full uppercase tracking-wider font-bold">Bestseller</span>
                   </div>
@@ -150,10 +158,13 @@ export default function CreatorPublicProfilePage() {
                 {/* Course 2 */}
                 <div className="group bg-surface-container-lowest border border-outline-variant/30 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 flex flex-col h-full">
                   <div className="aspect-video relative overflow-hidden bg-surface-dim">
-                    <img 
+                    <Image 
                       alt="Full-Stack Creative Production" 
+                      width={800}
+                      height={450}
                       className="w-full h-full object-cover transition-transform duration-750 group-hover:scale-105"
                       src="https://images.unsplash.com/photo-1551076805-e1869033e561?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                      unoptimized
                     />
                   </div>
                   <div className="p-5 flex-grow flex flex-col justify-between">
