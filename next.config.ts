@@ -7,6 +7,7 @@ const nextConfig: NextConfig = {
       { protocol: "https", hostname: "images.unsplash.com" },
     ],
   },
+  serverExternalPackages: ["@remotion/lambda"],
 };
 
 export default nextConfig;
