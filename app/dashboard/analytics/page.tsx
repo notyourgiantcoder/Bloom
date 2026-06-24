@@ -1,3 +1,5 @@
+import { MdCalendarToday, MdExpandMore, MdPayments, MdTrendingUp, MdGroup, MdSchedule, MdTrendingDown, MdTaskAlt, MdMoreHoriz } from "react-icons/md";
+
 export default function AnalyticsPage() {
   return (
     <div className="max-w-container-max mx-auto space-y-gutter">
@@ -8,9 +10,9 @@ export default function AnalyticsPage() {
           <p className="font-body-md text-body-md text-on-surface-variant mt-1">Overview of your creator workspace performance.</p>
         </div>
         <div className="flex items-center gap-3 bg-surface-container-lowest border border-outline-variant/30 rounded-lg px-4 py-2 hover:border-outline-variant transition-colors cursor-pointer card-shadow">
-          <span className="material-symbols-outlined text-outline">calendar_today</span>
+          <MdCalendarToday className="text-outline" />
           <span className="font-label-md text-label-md text-on-surface">Last 30 Days</span>
-          <span className="material-symbols-outlined text-outline">expand_more</span>
+          <MdExpandMore className="text-outline" />
         </div>
       </header>
 
@@ -21,12 +23,12 @@ export default function AnalyticsPage() {
           <div className="absolute -right-4 -top-4 w-24 h-24 bg-primary-fixed/20 rounded-full blur-xl group-hover:bg-primary-fixed/30 transition-colors"></div>
           <div className="flex justify-between items-start mb-4 relative z-10">
             <span className="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Revenue</span>
-            <span className="material-symbols-outlined text-primary bg-primary/10 p-2 rounded-lg">payments</span>
+            <MdPayments className="text-primary bg-primary/10 p-2 rounded-lg text-[40px]" />
           </div>
           <div className="relative z-10">
             <h3 className="font-headline-md text-headline-md text-on-surface m-0">$12,450</h3>
             <div className="flex items-center gap-1 mt-2 text-secondary">
-              <span className="material-symbols-outlined text-[16px]">trending_up</span>
+              <MdTrendingUp className="text-[16px]" />
               <span className="font-label-sm text-label-sm">+14.2%</span>
               <span className="font-label-sm text-label-sm text-outline ml-1">vs last month</span>
             </div>
@@ -37,12 +39,12 @@ export default function AnalyticsPage() {
           <div className="absolute -right-4 -top-4 w-24 h-24 bg-secondary-container/20 rounded-full blur-xl group-hover:bg-secondary-container/30 transition-colors"></div>
           <div className="flex justify-between items-start mb-4 relative z-10">
             <span className="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Students</span>
-            <span className="material-symbols-outlined text-secondary bg-secondary/10 p-2 rounded-lg">group</span>
+            <MdGroup className="text-secondary bg-secondary/10 p-2 rounded-lg text-[40px]" />
           </div>
           <div className="relative z-10">
             <h3 className="font-headline-md text-headline-md text-on-surface m-0">1,284</h3>
             <div className="flex items-center gap-1 mt-2 text-secondary">
-              <span className="material-symbols-outlined text-[16px]">trending_up</span>
+              <MdTrendingUp className="text-[16px]" />
               <span className="font-label-sm text-label-sm">+5.8%</span>
               <span className="font-label-sm text-label-sm text-outline ml-1">vs last month</span>
             </div>
@@ -53,12 +55,12 @@ export default function AnalyticsPage() {
           <div className="absolute -right-4 -top-4 w-24 h-24 bg-tertiary-fixed/20 rounded-full blur-xl group-hover:bg-tertiary-fixed/30 transition-colors"></div>
           <div className="flex justify-between items-start mb-4 relative z-10">
             <span className="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Watch Time</span>
-            <span className="material-symbols-outlined text-tertiary bg-tertiary/10 p-2 rounded-lg">schedule</span>
+            <MdSchedule className="text-tertiary bg-tertiary/10 p-2 rounded-lg text-[40px]" />
           </div>
           <div className="relative z-10">
             <h3 className="font-headline-md text-headline-md text-on-surface m-0">4,520h</h3>
             <div className="flex items-center gap-1 mt-2 text-error">
-              <span className="material-symbols-outlined text-[16px]">trending_down</span>
+              <MdTrendingDown className="text-[16px]" />
               <span className="font-label-sm text-label-sm">-2.1%</span>
               <span className="font-label-sm text-label-sm text-outline ml-1">vs last month</span>
             </div>
@@ -69,12 +71,12 @@ export default function AnalyticsPage() {
           <div className="absolute -right-4 -top-4 w-24 h-24 bg-surface-variant/50 rounded-full blur-xl group-hover:bg-surface-variant/70 transition-colors"></div>
           <div className="flex justify-between items-start mb-4 relative z-10">
             <span className="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Completion</span>
-            <span className="material-symbols-outlined text-primary bg-primary/10 p-2 rounded-lg">task_alt</span>
+            <MdTaskAlt className="text-primary bg-primary/10 p-2 rounded-lg text-[40px]" />
           </div>
           <div className="relative z-10">
             <h3 className="font-headline-md text-headline-md text-on-surface m-0">68%</h3>
             <div className="flex items-center gap-1 mt-2 text-secondary">
-              <span className="material-symbols-outlined text-[16px]">trending_up</span>
+              <MdTrendingUp className="text-[16px]" />
               <span className="font-label-sm text-label-sm">+1.4%</span>
               <span className="font-label-sm text-label-sm text-outline ml-1">vs last month</span>
             </div>
@@ -88,7 +90,7 @@ export default function AnalyticsPage() {
         <div className="bg-surface-container-lowest border border-outline-variant/30 rounded-xl p-6 card-shadow lg:col-span-2 flex flex-col">
           <div className="flex justify-between items-center mb-6">
             <h2 className="font-headline-sm text-headline-sm text-on-surface">Revenue Over Time</h2>
-            <button className="material-symbols-outlined text-outline hover:text-on-surface transition-colors">more_horiz</button>
+            <button className="text-outline hover:text-on-surface transition-colors flex items-center justify-center"><MdMoreHoriz className="text-xl" /></button>
           </div>
           <div className="flex-1 relative min-h-[300px] w-full bg-surface-container-low rounded-lg border border-outline-variant/20 flex items-end justify-between px-4 pb-8 pt-4">
             <svg className="absolute inset-0 w-full h-full" preserveAspectRatio="none" viewBox="0 0 100 100">
@@ -112,7 +114,7 @@ export default function AnalyticsPage() {
         <div className="bg-surface-container-lowest border border-outline-variant/30 rounded-xl p-6 card-shadow flex flex-col">
           <div className="flex justify-between items-center mb-6">
             <h2 className="font-headline-sm text-headline-sm text-on-surface">Enrollment</h2>
-            <button className="material-symbols-outlined text-outline hover:text-on-surface transition-colors">more_horiz</button>
+            <button className="text-outline hover:text-on-surface transition-colors flex items-center justify-center"><MdMoreHoriz className="text-xl" /></button>
           </div>
           <div className="flex-1 w-full flex items-end justify-between gap-2 h-full min-h-[250px] pb-6 relative">
             <div className="absolute inset-0 flex flex-col justify-between pb-8 pointer-events-none">
@@ -153,7 +155,7 @@ export default function AnalyticsPage() {
         <div className="bg-surface-container-lowest border border-outline-variant/30 rounded-xl p-6 card-shadow flex flex-col">
           <div className="flex justify-between items-center mb-6">
             <h2 className="font-headline-sm text-headline-sm text-on-surface">Top Courses</h2>
-            <button className="material-symbols-outlined text-outline hover:text-on-surface transition-colors">more_horiz</button>
+            <button className="text-outline hover:text-on-surface transition-colors flex items-center justify-center"><MdMoreHoriz className="text-xl" /></button>
           </div>
           <div className="space-y-4 flex-1 flex flex-col justify-center">
             <div>

@@ -1,4 +1,6 @@
+"use client";
 import Link from "next/link";
+import { MdVisibility, MdAdd, MdDragIndicator, MdFolder, MdMoreVert, MdArticle, MdOutlinePlayCircle, MdQuiz, MdFormatBold, MdFormatItalic, MdFormatUnderlined, MdFormatListBulleted, MdFormatListNumbered, MdAddPhotoAlternate, MdCode, MdEdit, MdDelete, MdUpload, MdDeleteForever } from "react-icons/md";
 import Image from "next/image";
 
 export default function CourseBuilderPage() {
@@ -27,10 +29,10 @@ export default function CourseBuilderPage() {
           </nav>
           {/* Actions */}
           <div className="flex items-center gap-4">
-            <Link href="/dashboard" className="font-label-md text-label-md text-primary bg-transparent border border-[#E8E0D5] hover:border-primary hover:text-primary-container px-4 py-2 rounded-lg transition-colors flex items-center gap-2">
-              <span className="material-symbols-outlined text-[18px]">visibility</span>
+            <button className="flex items-center gap-2 text-primary font-label-md text-label-sm border border-primary/30 px-3 py-1.5 rounded-lg hover:bg-primary/5 transition-colors">
+              <MdVisibility className="text-[18px]" />
               Preview
-            </Link>
+            </button>
             <Link href="/dashboard" className="font-label-md text-label-md text-on-primary bg-primary hover:bg-surface-tint px-6 py-2 rounded-lg transition-colors inline-block text-center flex items-center justify-center">
               Publish Course
             </Link>
@@ -45,53 +47,52 @@ export default function CourseBuilderPage() {
         <aside className="w-80 border-r border-[#E8E0D5] bg-surface-container-lowest flex flex-col h-full flex-shrink-0 z-20">
           <div className="p-4 border-b border-[#E8E0D5] flex justify-between items-center bg-white sticky top-0">
             <h2 className="font-label-md text-label-md text-primary tracking-wide">COURSE OUTLINE</h2>
-            <button className="text-primary hover:bg-surface-container p-1 rounded transition-colors" title="Add Module">
-              <span className="material-symbols-outlined text-[20px]">add</span>
+            <button className="flex items-center gap-2 text-on-surface-variant hover:text-primary transition-colors font-label-md text-label-md px-4 mt-2">
+              <MdAdd className="text-[20px]" /> Add Module
             </button>
           </div>
           <div className="flex-1 overflow-y-auto custom-scroll p-4 space-y-4">
             {/* Module 1 */}
             <div className="space-y-1">
-              <div className="flex items-center gap-2 p-2 hover:bg-surface-container rounded-md group cursor-move">
-                <span className="material-symbols-outlined text-outline-variant text-[16px] opacity-0 group-hover:opacity-100 transition-opacity cursor-grab">drag_indicator</span>
-                <span className="material-symbols-outlined text-primary text-[20px]">folder</span>
-                <span className="font-label-md text-label-md text-on-surface flex-1 truncate">1. Foundations of Design</span>
-                <button className="text-outline-variant hover:text-primary opacity-0 group-hover:opacity-100"><span className="material-symbols-outlined text-[16px]">more_vert</span></button>
+              <div className="flex items-center justify-between p-3 rounded-lg hover:bg-surface-container transition-colors group cursor-pointer">
+                <div className="flex items-center gap-3">
+                  <MdDragIndicator className="text-outline-variant text-[16px] opacity-0 group-hover:opacity-100 transition-opacity cursor-grab" />
+                  <MdFolder className="text-primary text-[20px]" />
+                  <span className="font-label-md text-label-md text-on-surface font-semibold">1. Foundations of Cinematography</span>
+                </div>
+                <button className="text-outline-variant hover:text-primary opacity-0 group-hover:opacity-100"><MdMoreVert className="text-[16px]" /></button>
               </div>
-              <div className="pl-8 space-y-1">
-                {/* Active Lesson */}
-                <div className="flex items-center gap-2 p-2 bg-surface-container-low border border-primary/20 rounded-md group cursor-pointer relative shadow-[0_1px_4px_rgba(26,46,46,0.06)]">
-                  <div className="w-2 h-2 rounded-full bg-primary flex-shrink-0"></div>
-                  <span className="material-symbols-outlined text-primary text-[18px]">article</span>
-                  <span className="font-body-md text-body-md text-primary flex-1 truncate">Introduction to Grids</span>
+              <div className="pl-12 pr-3 py-2 space-y-1">
+                <div className="flex items-center gap-3 p-2 rounded-lg bg-surface-container-high border border-outline-variant/30 shadow-sm cursor-pointer">
+                  <MdArticle className="text-primary text-[18px]" />
+                  <span className="font-body-md text-sm text-on-surface font-medium flex-grow">1.1 Course Overview</span>
+                  <span className="text-[10px] text-on-surface-variant bg-surface-variant px-2 py-0.5 rounded uppercase tracking-wider font-semibold">Draft</span>
                 </div>
-                {/* Completed Lesson */}
-                <div className="flex items-center gap-2 p-2 hover:bg-surface-container rounded-md group cursor-pointer">
-                  <div className="w-2 h-2 rounded-full bg-secondary flex-shrink-0"></div>
-                  <span className="material-symbols-outlined text-outline-variant text-[18px]">play_circle</span>
-                  <span className="font-body-md text-body-md text-on-surface-variant flex-1 truncate">Layout Principles Video</span>
+                <div className="flex items-center gap-3 p-2 rounded-lg hover:bg-surface-container transition-colors cursor-pointer text-on-surface-variant hover:text-on-surface">
+                  <MdOutlinePlayCircle className="text-[18px]" />
+                  <span className="font-body-md text-sm">1.2 Understanding Lenses</span>
+                  <span className="text-[10px] uppercase tracking-wider">12:45</span>
                 </div>
-                {/* Draft Lesson */}
-                <div className="flex items-center gap-2 p-2 hover:bg-surface-container rounded-md group cursor-pointer">
-                  <div className="w-2 h-2 rounded-full bg-[#E8E0D5] flex-shrink-0"></div>
-                  <span className="material-symbols-outlined text-outline-variant text-[18px]">quiz</span>
-                  <span className="font-body-md text-body-md text-outline-variant flex-1 truncate italic">Knowledge Check (Draft)</span>
+                <div className="flex items-center gap-3 p-2 rounded-lg hover:bg-surface-container transition-colors cursor-pointer text-on-surface-variant hover:text-on-surface">
+                  <MdQuiz className="text-[18px]" />
+                  <span className="font-body-md text-sm">Quiz: Gear Check</span>
                 </div>
               </div>
             </div>
             {/* Module 2 */}
             <div className="space-y-1">
-              <div className="flex items-center gap-2 p-2 hover:bg-surface-container rounded-md group cursor-move">
-                <span className="material-symbols-outlined text-outline-variant text-[16px] opacity-0 group-hover:opacity-100 transition-opacity cursor-grab">drag_indicator</span>
-                <span className="material-symbols-outlined text-primary text-[20px]">folder</span>
-                <span className="font-label-md text-label-md text-on-surface flex-1 truncate">2. Advanced Components</span>
-                <button className="text-outline-variant hover:text-primary opacity-0 group-hover:opacity-100"><span className="material-symbols-outlined text-[16px]">more_vert</span></button>
+              <div className="flex items-center justify-between p-3 rounded-lg hover:bg-surface-container transition-colors group cursor-pointer opacity-60">
+                <div className="flex items-center gap-3">
+                  <MdDragIndicator className="text-outline-variant text-[16px] opacity-0 group-hover:opacity-100 transition-opacity cursor-grab" />
+                  <MdFolder className="text-primary text-[20px]" />
+                  <span className="font-label-md text-label-md text-on-surface font-semibold">2. Calibrating Calmer Paces</span>
+                </div>
+                <button className="text-outline-variant hover:text-primary opacity-0 group-hover:opacity-100"><MdMoreVert className="text-[16px]" /></button>
               </div>
-              <div className="pl-8 space-y-1">
-                <div className="flex items-center gap-2 p-2 hover:bg-surface-container rounded-md group cursor-pointer">
-                  <div className="w-2 h-2 rounded-full bg-[#E8E0D5] flex-shrink-0"></div>
-                  <span className="material-symbols-outlined text-outline-variant text-[18px]">article</span>
-                  <span className="font-body-md text-body-md text-on-surface-variant flex-1 truncate">Building Complex Navs</span>
+              <div className="pl-12 pr-3 py-2 space-y-1 opacity-60">
+                <div className="flex items-center gap-3 p-2 rounded-lg hover:bg-surface-container transition-colors cursor-pointer text-on-surface-variant hover:text-on-surface">
+                  <MdArticle className="text-[18px]" />
+                  <span className="font-body-md text-sm">2.1 Lighting Basics</span>
                 </div>
               </div>
             </div>
@@ -117,25 +118,26 @@ export default function CourseBuilderPage() {
               </select>
             </div>
             <div className="w-px h-6 bg-[#E8E0D5]"></div>
+            
             <div className="flex items-center gap-1">
-              <button className="p-1.5 rounded hover:bg-surface-container text-on-surface transition-colors"><span className="material-symbols-outlined text-[20px]">format_bold</span></button>
-              <button className="p-1.5 rounded hover:bg-surface-container text-on-surface transition-colors"><span className="material-symbols-outlined text-[20px]">format_italic</span></button>
-              <button className="p-1.5 rounded hover:bg-surface-container text-on-surface transition-colors"><span className="material-symbols-outlined text-[20px]">format_underlined</span></button>
+              <button className="p-1.5 rounded hover:bg-surface-container text-on-surface transition-colors"><MdFormatBold className="text-[20px]" /></button>
+              <button className="p-1.5 rounded hover:bg-surface-container text-on-surface transition-colors"><MdFormatItalic className="text-[20px]" /></button>
+              <button className="p-1.5 rounded hover:bg-surface-container text-on-surface transition-colors"><MdFormatUnderlined className="text-[20px]" /></button>
             </div>
-            <div className="w-px h-6 bg-[#E8E0D5]"></div>
+            
             <div className="flex items-center gap-1">
-              <button className="p-1.5 rounded hover:bg-surface-container text-on-surface transition-colors"><span className="material-symbols-outlined text-[20px]">format_list_bulleted</span></button>
-              <button className="p-1.5 rounded hover:bg-surface-container text-on-surface transition-colors"><span className="material-symbols-outlined text-[20px]">format_list_numbered</span></button>
+              <button className="p-1.5 rounded hover:bg-surface-container text-on-surface transition-colors"><MdFormatListBulleted className="text-[20px]" /></button>
+              <button className="p-1.5 rounded hover:bg-surface-container text-on-surface transition-colors"><MdFormatListNumbered className="text-[20px]" /></button>
             </div>
-            <div className="w-px h-6 bg-[#E8E0D5]"></div>
-            <div className="flex items-center gap-1 flex-shrink-0">
-              <button className="p-1.5 rounded hover:bg-surface-container text-on-surface transition-colors text-primary flex items-center gap-1 px-2">
-                <span className="material-symbols-outlined text-[20px]">add_photo_alternate</span>
-                <span className="font-label-sm text-label-sm">Add Media</span>
+
+            <div className="flex items-center gap-1">
+              <button className="p-1.5 rounded hover:bg-surface-container text-on-surface transition-colors flex items-center gap-1 pr-3">
+                <MdAddPhotoAlternate className="text-[20px]" />
+                <span className="font-label-sm text-xs">Media</span>
               </button>
-              <button className="p-1.5 rounded hover:bg-surface-container text-on-surface transition-colors flex items-center gap-1 px-2">
-                <span className="material-symbols-outlined text-[20px]">code</span>
-                <span className="font-label-sm text-label-sm">Embed</span>
+              <button className="p-1.5 rounded hover:bg-surface-container text-on-surface transition-colors flex items-center gap-1 pr-3">
+                <MdCode className="text-[20px]" />
+                <span className="font-label-sm text-xs">Block</span>
               </button>
             </div>
           </div>
@@ -151,9 +153,9 @@ export default function CourseBuilderPage() {
                 {/* Image Block */}
                 <div className="my-8 rounded-xl border border-[#E8E0D5] bg-surface-container-low p-2 shadow-[0_1px_4px_rgba(26,46,46,0.06)] relative group">
                   <Image alt="Grid diagram placeholder" width={720} height={256} className="w-full h-64 object-cover rounded-lg" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBsnlv4ySyN9wJ5o0zCMsluUL07tma6B30HOESmRJ0pKbO4Mw7BLwIkisZJ1HD0JCmQg8vwBkXZCk4QtRfk2R1cCRJNcy8XZWc9Uo5WuY-lAqGMCt8xOmnUkwcR3FUrJEf1ZeRqUUUCeX6r4WsuOd8hhZ7MYHNdq51C1VqgSImQ4N_PdOFq87C_BCNRbs1VtP_7yMMK99Am_xu2UZXvQn8NNV2ppdzeXpO5h8E_16QKkAwQPFz3FTYLnVL4v9YJz_5J7iTGniLNZD8" />
-                  <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity flex gap-2">
-                    <button className="bg-white/90 p-1.5 rounded-md shadow-sm text-primary hover:bg-white"><span className="material-symbols-outlined text-[18px]">edit</span></button>
-                    <button className="bg-white/90 p-1.5 rounded-md shadow-sm text-error hover:bg-white"><span className="material-symbols-outlined text-[18px]">delete</span></button>
+                  <div className="absolute top-4 right-4 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <button className="bg-white/90 p-1.5 rounded-md shadow-sm text-primary hover:bg-white"><MdEdit className="text-[18px]" /></button>
+                    <button className="bg-white/90 p-1.5 rounded-md shadow-sm text-error hover:bg-white"><MdDelete className="text-[18px]" /></button>
                   </div>
                   <p className="text-center text-label-sm font-label-sm text-outline mt-2 mb-1">Figure 1: The 12-column desktop grid.</p>
                 </div>
@@ -166,7 +168,7 @@ export default function CourseBuilderPage() {
                 </ul>
                 {/* Empty block indicator */}
                 <div className="flex items-center gap-2 text-outline-variant opacity-50 hover:opacity-100 transition-opacity mt-8 cursor-text">
-                  <span className="material-symbols-outlined text-[20px]">add</span>
+                  <MdAdd className="text-[20px]" />
                   <span className="font-body-md text-body-md">Type &apos;/&apos; for commands</span>
                 </div>
               </div>
@@ -201,9 +203,9 @@ export default function CourseBuilderPage() {
             <div className="space-y-3">
               <label className="block font-label-md text-label-md text-on-surface">Lesson Cover</label>
               <div className="border-2 border-dashed border-[#E8E0D5] rounded-xl p-6 flex flex-col items-center justify-center text-center hover:border-primary/50 hover:bg-surface transition-colors cursor-pointer group">
-                <div className="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center mb-3 group-hover:bg-primary-container group-hover:text-on-primary-container text-primary transition-colors">
-                  <span className="material-symbols-outlined">upload</span>
-                </div>
+                <button className="w-full mt-4 bg-primary text-on-primary font-label-md text-label-md py-3 rounded-lg hover:bg-primary-container transition-colors shadow-sm flex items-center justify-center gap-2 font-semibold">
+                  <MdUpload /> Publish Module
+                </button>
                 <p className="font-label-md text-label-md text-primary mb-1">Click to upload</p>
                 <p className="font-label-sm text-label-sm text-outline-variant">SVG, PNG, JPG or GIF (max. 800x400px)</p>
               </div>
@@ -225,7 +227,7 @@ export default function CourseBuilderPage() {
             {/* Danger Zone */}
             <div className="pt-6 border-t border-[#E8E0D5]">
               <button className="w-full flex justify-center items-center gap-2 py-2 text-label-md font-label-md text-error hover:bg-error-container/20 rounded-lg transition-colors border border-transparent hover:border-error/30">
-                <span className="material-symbols-outlined text-[18px]">delete_forever</span>
+                <MdDeleteForever className="text-[18px]" />
                 Delete Lesson
               </button>
             </div>

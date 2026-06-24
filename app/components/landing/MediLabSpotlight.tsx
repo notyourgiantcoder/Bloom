@@ -1,3 +1,4 @@
+import { MdMonitorHeart, MdArrowForward } from "react-icons/md";
 export default function MediLabSpotlight() {
   return (
     <section className="py-24 px-margin-mobile md:px-margin-desktop bg-tertiary-fixed my-12 rounded-[2rem] max-w-container-max mx-auto border border-tertiary-fixed-dim relative overflow-hidden">
@@ -12,7 +13,7 @@ export default function MediLabSpotlight() {
                 <span className="font-label-sm text-label-sm text-tertiary-container uppercase tracking-wider">Case #402</span>
                 <h3 className="font-headline-sm text-headline-sm text-on-surface mt-1">Patient: M. Chen, 45</h3>
               </div>
-              <span className="material-symbols-outlined text-error">monitor_heart</span>
+              <MdMonitorHeart className="text-error" />
             </div>
             <div className="bg-surface px-4 py-3 rounded-lg border border-surface-variant mb-6 text-sm text-on-surface-variant">
               <strong>Chief Complaint:</strong> &quot;I feel like an elephant is sitting on my chest, and it&apos;s radiating to my jaw.&quot; Began 45 mins ago.
@@ -21,15 +22,15 @@ export default function MediLabSpotlight() {
             <div className="space-y-3">
               <button className="w-full text-left px-4 py-3 rounded-lg border border-outline-variant hover:border-primary hover:bg-surface-container-low transition-colors font-body-md text-body-md text-on-surface flex justify-between items-center">
                 Administer Aspirin 325mg
-                <span className="material-symbols-outlined text-outline text-sm">arrow_forward</span>
+                <MdArrowForward className="text-outline text-sm" />
               </button>
               <button className="w-full text-left px-4 py-3 rounded-lg border border-outline-variant hover:border-primary hover:bg-surface-container-low transition-colors font-body-md text-body-md text-on-surface flex justify-between items-center">
                 Order stat ECG
-                <span className="material-symbols-outlined text-outline text-sm">arrow_forward</span>
+                <MdArrowForward className="text-outline text-sm" />
               </button>
               <button className="w-full text-left px-4 py-3 rounded-lg border border-outline-variant hover:border-error hover:bg-error-container transition-colors font-body-md text-body-md text-on-surface flex justify-between items-center">
                 Discharge with antacids
-                <span className="material-symbols-outlined text-outline text-sm">arrow_forward</span>
+                <MdArrowForward className="text-outline text-sm" />
               </button>
             </div>
           </div>

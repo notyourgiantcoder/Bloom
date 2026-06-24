@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import { MdCalendarMonth, MdAdd, MdPayments, MdTrendingUp, MdGroups, MdLibraryBooks, MdCheckCircle, MdArrowForward, MdForum, MdStar, MdPersonAdd, MdVideocam, MdQuiz, MdCampaign, MdAutoAwesome, MdEditDocument } from "react-icons/md";
 
 export default function DashboardPage() {
   return (
@@ -12,11 +13,11 @@ export default function DashboardPage() {
         </div>
         <div className="flex gap-3">
           <Link href="/dashboard" className="bg-transparent border border-[#E8E0D5] text-secondary font-label-md text-label-md py-2 px-4 rounded-lg hover:border-primary transition-colors flex items-center gap-2">
-            <span className="material-symbols-outlined text-[18px]">calendar_month</span>
+            <MdCalendarMonth className="text-[18px]" />
             Schedule
           </Link>
           <Link href="/course-builder" className="bg-primary text-on-primary font-label-md text-label-md py-2 px-4 rounded-lg hover:bg-[#356664] focus:ring-2 focus:ring-primary focus:ring-offset-2 transition-colors flex items-center gap-2">
-            <span className="material-symbols-outlined text-[18px]">add</span>
+            <MdAdd className="text-[18px]" />
             New Course
           </Link>
         </div>
@@ -29,11 +30,11 @@ export default function DashboardPage() {
           <div className="absolute -right-6 -top-6 w-24 h-24 bg-surface-container rounded-full opacity-50 group-hover:scale-110 transition-transform duration-500 pointer-events-none"></div>
           <div className="flex items-start justify-between mb-2">
             <p className="font-label-sm text-label-sm text-on-surface-variant">Revenue</p>
-            <span className="material-symbols-outlined text-secondary text-[20px] bg-secondary-container/30 p-1 rounded-md">payments</span>
+            <MdPayments className="text-secondary text-[20px] bg-secondary-container/30 p-1 rounded-md" />
           </div>
           <h3 className="font-headline-md text-headline-md text-primary">₹1,42,500</h3>
           <p className="font-label-sm text-label-sm text-secondary flex items-center mt-2 gap-1">
-            <span className="material-symbols-outlined text-[14px]">trending_up</span>
+            <MdTrendingUp className="text-[14px]" />
             +12% from last month
           </p>
         </div>
@@ -42,11 +43,11 @@ export default function DashboardPage() {
           <div className="absolute -right-6 -top-6 w-24 h-24 bg-surface-container rounded-full opacity-50 group-hover:scale-110 transition-transform duration-500 pointer-events-none"></div>
           <div className="flex items-start justify-between mb-2">
             <p className="font-label-sm text-label-sm text-on-surface-variant">Active Learners</p>
-            <span className="material-symbols-outlined text-secondary text-[20px] bg-secondary-container/30 p-1 rounded-md">groups</span>
+            <MdGroups className="text-secondary text-[20px] bg-secondary-container/30 p-1 rounded-md" />
           </div>
           <h3 className="font-headline-md text-headline-md text-primary">3,240</h3>
           <p className="font-label-sm text-label-sm text-secondary flex items-center mt-2 gap-1">
-            <span className="material-symbols-outlined text-[14px]">trending_up</span>
+            <MdTrendingUp className="text-[14px]" />
             +85 this week
           </p>
         </div>
@@ -55,7 +56,7 @@ export default function DashboardPage() {
           <div className="absolute -right-6 -top-6 w-24 h-24 bg-surface-container rounded-full opacity-50 group-hover:scale-110 transition-transform duration-500 pointer-events-none"></div>
           <div className="flex items-start justify-between mb-2">
             <p className="font-label-sm text-label-sm text-on-surface-variant">Live Courses</p>
-            <span className="material-symbols-outlined text-secondary text-[20px] bg-secondary-container/30 p-1 rounded-md">library_books</span>
+            <MdLibraryBooks className="text-secondary text-[20px] bg-secondary-container/30 p-1 rounded-md" />
           </div>
           <h3 className="font-headline-md text-headline-md text-primary">12</h3>
           <p className="font-label-sm text-label-sm text-on-surface-variant flex items-center mt-2 gap-1">
@@ -67,11 +68,11 @@ export default function DashboardPage() {
           <div className="absolute -right-6 -top-6 w-24 h-24 bg-surface-container rounded-full opacity-50 group-hover:scale-110 transition-transform duration-500 pointer-events-none"></div>
           <div className="flex items-start justify-between mb-2">
             <p className="font-label-sm text-label-sm text-on-surface-variant">Avg. Completion</p>
-            <span className="material-symbols-outlined text-secondary text-[20px] bg-secondary-container/30 p-1 rounded-md">check_circle</span>
+            <MdCheckCircle className="text-secondary text-[20px] bg-secondary-container/30 p-1 rounded-md" />
           </div>
           <h3 className="font-headline-md text-headline-md text-primary">78%</h3>
           <p className="font-label-sm text-label-sm text-secondary flex items-center mt-2 gap-1">
-            <span className="material-symbols-outlined text-[14px]">trending_up</span>
+            <MdTrendingUp className="text-[14px]" />
             +4% from average
           </p>
         </div>
@@ -84,7 +85,7 @@ export default function DashboardPage() {
           <div className="flex items-center justify-between mb-2">
             <h2 className="font-headline-sm text-headline-sm text-primary">Recent Activity</h2>
             <Link href="/dashboard" className="font-label-sm text-label-sm text-secondary hover:underline flex items-center gap-1">
-              View all <span className="material-symbols-outlined text-[14px]">arrow_forward</span>
+              View all <MdArrowForward className="text-[14px]" />
             </Link>
           </div>
           <div className="bg-surface-container-lowest border border-[#E8E0D5] rounded-xl p-1 shadow-[0_1px_4px_rgba(26,46,46,0.06)]">
@@ -92,7 +93,7 @@ export default function DashboardPage() {
               {/* Activity Item 1 */}
               <li className="p-4 flex gap-4 hover:bg-surface-container/30 transition-colors rounded-lg group">
                 <div className="w-10 h-10 rounded-full bg-[#E8E0D5]/50 flex items-center justify-center flex-shrink-0 text-primary">
-                  <span className="material-symbols-outlined">forum</span>
+                  <MdForum />
                 </div>
                 <div className="flex-1">
                   <div className="flex justify-between items-start">
@@ -106,7 +107,7 @@ export default function DashboardPage() {
               {/* Activity Item 2 */}
               <li className="p-4 flex gap-4 hover:bg-surface-container/30 transition-colors rounded-lg group">
                 <div className="w-10 h-10 rounded-full bg-secondary-container/50 flex items-center justify-center flex-shrink-0 text-secondary">
-                  <span className="material-symbols-outlined">star</span>
+                  <MdStar />
                 </div>
                 <div className="flex-1">
                   <div className="flex justify-between items-start">
@@ -119,7 +120,7 @@ export default function DashboardPage() {
               {/* Activity Item 3 */}
               <li className="p-4 flex gap-4 hover:bg-surface-container/30 transition-colors rounded-lg group">
                 <div className="w-10 h-10 rounded-full bg-[#E8E0D5]/50 flex items-center justify-center flex-shrink-0 text-primary">
-                  <span className="material-symbols-outlined">person_add</span>
+                  <MdPersonAdd />
                 </div>
                 <div className="flex-1">
                   <div className="flex justify-between items-start">
@@ -140,28 +141,28 @@ export default function DashboardPage() {
             {/* Action Card 1 */}
             <Link href="/course-builder" className="bg-surface-container-lowest border border-[#E8E0D5] rounded-xl p-5 shadow-[0_1px_4px_rgba(26,46,46,0.06)] hover:border-secondary hover:shadow-md transition-all group flex flex-col items-center text-center gap-3">
               <div className="w-12 h-12 rounded-full bg-surface-container flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-on-primary transition-colors">
-                <span className="material-symbols-outlined">videocam</span>
+                <MdVideocam />
               </div>
               <span className="font-label-md text-label-md text-primary">Record Lesson</span>
             </Link>
             {/* Action Card 2 */}
             <Link href="/course-builder" className="bg-surface-container-lowest border border-[#E8E0D5] rounded-xl p-5 shadow-[0_1px_4px_rgba(26,46,46,0.06)] hover:border-secondary hover:shadow-md transition-all group flex flex-col items-center text-center gap-3">
               <div className="w-12 h-12 rounded-full bg-surface-container flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-on-primary transition-colors">
-                <span className="material-symbols-outlined">quiz</span>
+                <MdQuiz />
               </div>
               <span className="font-label-md text-label-md text-primary">Create Quiz</span>
             </Link>
             {/* Action Card 3 */}
             <Link href="/course-builder" className="bg-surface-container-lowest border border-[#E8E0D5] rounded-xl p-5 shadow-[0_1px_4px_rgba(26,46,46,0.06)] hover:border-secondary hover:shadow-md transition-all group flex flex-col items-center text-center gap-3">
               <div className="w-12 h-12 rounded-full bg-surface-container flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-on-primary transition-colors">
-                <span className="material-symbols-outlined">campaign</span>
+                <MdCampaign />
               </div>
               <span className="font-label-md text-label-md text-primary">Announcement</span>
             </Link>
             {/* Action Card 4 */}
             <Link href="/dashboard" className="bg-surface-container-lowest border border-[#E8E0D5] rounded-xl p-5 shadow-[0_1px_4px_rgba(26,46,46,0.06)] hover:border-secondary hover:shadow-md transition-all group flex flex-col items-center text-center gap-3">
               <div className="w-12 h-12 rounded-full bg-[#E8E0D5] flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-on-primary transition-colors">
-                <span className="material-symbols-outlined">auto_awesome</span>
+                <MdAutoAwesome />
               </div>
               <span className="font-label-md text-label-md text-primary">AI Assistant</span>
             </Link>
@@ -174,7 +175,7 @@ export default function DashboardPage() {
         <div className="flex items-center justify-between mb-4">
           <h2 className="font-headline-sm text-headline-sm text-primary">Your Courses</h2>
           <Link href="/dashboard" className="font-label-sm text-label-sm text-secondary hover:underline flex items-center gap-1">
-            Manage all <span className="material-symbols-outlined text-[14px]">arrow_forward</span>
+            Manage all <MdArrowForward className="text-[14px]" />
           </Link>
         </div>
         <div className="flex gap-4 overflow-x-auto pb-4 no-scrollbar -mx-margin-mobile px-margin-mobile md:mx-0 md:px-0 snap-x">
@@ -195,7 +196,7 @@ export default function DashboardPage() {
                 <div>
                   <p className="font-label-sm text-label-sm text-outline text-[10px]">RATING</p>
                   <p className="font-label-md text-label-md text-primary flex items-center">
-                    <span className="material-symbols-outlined text-secondary text-[14px] mr-1" style={{ fontVariationSettings: "'FILL' 1" }}>star</span> 4.9
+                    <MdStar className="text-secondary text-[14px] mr-1" /> 4.9
                   </p>
                 </div>
               </div>
@@ -218,7 +219,7 @@ export default function DashboardPage() {
                 <div>
                   <p className="font-label-sm text-label-sm text-outline text-[10px]">RATING</p>
                   <p className="font-label-md text-label-md text-primary flex items-center">
-                    <span className="material-symbols-outlined text-secondary text-[14px] mr-1 filled">star</span> 4.8
+                    <MdStar className="text-secondary text-[14px] mr-1" /> 4.8
                   </p>
                 </div>
               </div>
@@ -227,7 +228,7 @@ export default function DashboardPage() {
           {/* Course Card 3 (Draft) */}
           <div className="bg-surface border border-outline-variant border-dashed rounded-xl shadow-none min-w-[300px] w-[300px] flex-shrink-0 snap-start overflow-hidden flex flex-col opacity-80 hover:opacity-100 transition-opacity">
             <div className="h-40 bg-surface-container-highest flex items-center justify-center relative">
-              <span className="material-symbols-outlined text-[48px] text-outline">edit_document</span>
+              <MdEditDocument className="text-[48px] text-outline text-[48px]" />
               <div className="absolute top-3 right-3 bg-surface-container-lowest/90 backdrop-blur-sm px-2 py-1 rounded font-label-sm text-label-sm text-on-surface-variant">Draft</div>
             </div>
             <div className="p-4 flex-1 flex flex-col justify-center items-center text-center">
@@ -242,7 +243,7 @@ export default function DashboardPage() {
           {/* Add New Card */}
           <Link href="/course-builder" className="bg-transparent border border-outline-variant border-dashed rounded-xl shadow-none min-w-[300px] w-[300px] flex-shrink-0 snap-start flex flex-col items-center justify-center text-outline hover:text-primary hover:border-primary hover:bg-surface-container-lowest transition-all">
             <div className="w-16 h-16 rounded-full bg-surface-container-lowest flex items-center justify-center mb-4 border border-[#E8E0D5]">
-              <span className="material-symbols-outlined text-[32px]">add</span>
+              <MdAdd className="text-[32px]" />
             </div>
             <h3 className="font-headline-md text-body-lg font-medium">Create New Course</h3>
           </Link>

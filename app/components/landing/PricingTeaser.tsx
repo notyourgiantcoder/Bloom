@@ -1,3 +1,4 @@
+import { MdCheck } from "react-icons/md";
 export default function PricingTeaser() {
   return (
     <section className="py-24 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
@@ -14,9 +15,9 @@ export default function PricingTeaser() {
             <span className="font-body-md text-body-md text-on-surface-variant">/month</span>
           </div>
           <ul className="space-y-4 mb-8 flex-1 font-body-md text-body-md text-on-surface-variant">
-            <li className="flex items-center gap-3"><span className="material-symbols-outlined text-secondary text-sm">check</span> 1 Published Course</li>
-            <li className="flex items-center gap-3"><span className="material-symbols-outlined text-secondary text-sm">check</span> Basic Course Builder</li>
-            <li className="flex items-center gap-3"><span className="material-symbols-outlined text-secondary text-sm">check</span> Standard Community</li>
+            <li className="flex items-center gap-3"><MdCheck className="text-secondary text-sm" /> 1 Published Course</li>
+            <li className="flex items-center gap-3"><MdCheck className="text-secondary text-sm" /> Basic Course Builder</li>
+            <li className="flex items-center gap-3"><MdCheck className="text-secondary text-sm" /> Standard Community</li>
           </ul>
           <button className="w-full rounded-lg bg-surface-container text-on-surface px-4 py-3 font-label-md text-label-md hover:bg-surface-container-high transition-colors border border-outline-variant">
             Get Started
@@ -31,10 +32,10 @@ export default function PricingTeaser() {
             <span className="font-body-md text-body-md text-on-primary/70">/month</span>
           </div>
           <ul className="space-y-4 mb-8 flex-1 font-body-md text-body-md text-on-primary/90">
-            <li className="flex items-center gap-3"><span className="material-symbols-outlined text-secondary-container text-sm">check</span> Unlimited Courses</li>
-            <li className="flex items-center gap-3"><span className="material-symbols-outlined text-secondary-container text-sm">check</span> AI PDF to Video (10h/mo)</li>
-            <li className="flex items-center gap-3"><span className="material-symbols-outlined text-secondary-container text-sm">check</span> Advanced Analytics</li>
-            <li className="flex items-center gap-3"><span className="material-symbols-outlined text-secondary-container text-sm">check</span> Zero Transaction Fees</li>
+            <li className="flex items-center gap-3"><MdCheck className="text-secondary-container text-sm" /> Unlimited Courses</li>
+            <li className="flex items-center gap-3"><MdCheck className="text-secondary-container text-sm" /> AI PDF to Video (10h/mo)</li>
+            <li className="flex items-center gap-3"><MdCheck className="text-secondary-container text-sm" /> Advanced Analytics</li>
+            <li className="flex items-center gap-3"><MdCheck className="text-secondary-container text-sm" /> Zero Transaction Fees</li>
           </ul>
           <button className="w-full rounded-lg bg-on-primary text-primary px-4 py-3 font-label-md text-label-md hover:bg-surface-container transition-colors">
             Start 14-Day Trial
@@ -48,10 +49,10 @@ export default function PricingTeaser() {
             <span className="font-body-md text-body-md text-on-surface-variant">/month</span>
           </div>
           <ul className="space-y-4 mb-8 flex-1 font-body-md text-body-md text-on-surface-variant">
-            <li className="flex items-center gap-3"><span className="material-symbols-outlined text-tertiary-container text-sm">check</span> Everything in Creator</li>
-            <li className="flex items-center gap-3"><span className="material-symbols-outlined text-tertiary-container text-sm">check</span> Interactive Case Builder</li>
-            <li className="flex items-center gap-3"><span className="material-symbols-outlined text-tertiary-container text-sm">check</span> Clinical Scenario Logic</li>
-            <li className="flex items-center gap-3"><span className="material-symbols-outlined text-tertiary-container text-sm">check</span> CME Certification Tools</li>
+            <li className="flex items-center gap-3"><MdCheck className="text-tertiary-container text-sm" /> Everything in Creator</li>
+            <li className="flex items-center gap-3"><MdCheck className="text-tertiary-container text-sm" /> Interactive Case Builder</li>
+            <li className="flex items-center gap-3"><MdCheck className="text-tertiary-container text-sm" /> Clinical Scenario Logic</li>
+            <li className="flex items-center gap-3"><MdCheck className="text-tertiary-container text-sm" /> CME Certification Tools</li>
           </ul>
           <button className="w-full rounded-lg bg-surface-container text-on-surface px-4 py-3 font-label-md text-label-md hover:bg-surface-container-high transition-colors border border-outline-variant">
             Contact Sales

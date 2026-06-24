@@ -1,4 +1,5 @@
 "use client";
+import { MdPlayArrow, MdMovie, MdPause, MdVolumeUp, MdSettings, MdFullscreen, MdDescription, MdDownload, MdStickyNote2, MdCheckCircle, MdOutlinePlayCircle, MdQuiz } from "react-icons/md";
 
 import { useState } from "react";
 import Image from "next/image";
@@ -66,13 +67,13 @@ export default function StudentLearningPage() {
                 onClick={() => setIsPlaying(true)}
               >
                 <button className="w-16 h-16 rounded-full bg-primary text-on-primary flex items-center justify-center backdrop-blur-sm hover:scale-105 transition-all shadow-lg font-bold">
-                  <span className="material-symbols-outlined filled text-4xl ml-1">play_arrow</span>
+                  <MdPlayArrow className="text-4xl ml-1" />
                 </button>
               </div>
             ) : (
               <div className="absolute inset-0 bg-black flex items-center justify-center">
                 <div className="text-center p-8">
-                  <span className="material-symbols-outlined text-[64px] text-secondary animate-bounce">movie</span>
+                  <MdMovie className="text-[64px] text-secondary animate-bounce mx-auto" />
                   <h3 className="font-headline-sm text-headline-sm text-white mt-4">Playing Video Stream</h3>
                   <p className="font-body-md text-sm text-outline-variant mt-2">Lesson 2.3: Visual Hook &amp; Composition</p>
                   <button 
@@ -91,15 +92,15 @@ export default function StudentLearningPage() {
                 onClick={() => setIsPlaying(!isPlaying)}
                 className="text-on-primary hover:text-secondary-container transition-colors"
               >
-                <span className="material-symbols-outlined">{isPlaying ? "pause" : "play_arrow"}</span>
+                {isPlaying ? <MdPause /> : <MdPlayArrow />}
               </button>
               <div className="flex-grow h-1 bg-surface-container/30 rounded-full overflow-hidden cursor-pointer relative">
                 <div className="absolute left-0 top-0 h-full bg-secondary" style={{ width: '33%' }}></div>
               </div>
               <span className="font-label-sm text-label-sm text-on-primary">12:34 / 45:00</span>
-              <button className="text-on-primary hover:text-secondary-container transition-colors"><span className="material-symbols-outlined">volume_up</span></button>
-              <button className="text-on-primary hover:text-secondary-container transition-colors"><span className="material-symbols-outlined">settings</span></button>
-              <button className="text-on-primary hover:text-secondary-container transition-colors"><span className="material-symbols-outlined">fullscreen</span></button>
+              <button className="text-on-primary hover:text-secondary-container transition-colors"><MdVolumeUp /></button>
+              <button className="text-on-primary hover:text-secondary-container transition-colors"><MdSettings /></button>
+              <button className="text-on-primary hover:text-secondary-container transition-colors"><MdFullscreen /></button>
             </div>
           </div>
 
@@ -169,12 +170,12 @@ export default function StudentLearningPage() {
                 </ul>
                 
                 <div className="mt-8 p-6 bg-surface-container border border-outline-variant/30 rounded-xl flex items-start gap-4 shadow-sm">
-                  <span className="material-symbols-outlined text-secondary text-2xl mt-1">description</span>
+                  <MdDescription className="text-secondary text-2xl mt-1" />
                   <div>
                     <h4 className="font-headline-sm text-lg text-on-surface">Lesson Resources</h4>
                     <p className="font-body-md text-sm text-on-surface-variant mt-1 mb-3">Download the companion workspaces, script sheets, and editing templates.</p>
                     <button className="text-primary font-label-md text-label-sm border border-primary px-4 py-2 rounded-lg hover:opacity-90 transition-colors inline-flex items-center gap-2">
-                      Download PDF <span className="material-symbols-outlined text-[14px]">download</span>
+                      Download PDF <MdDownload className="text-[14px]" />
                     </button>
                   </div>
                 </div>
@@ -204,7 +205,7 @@ export default function StudentLearningPage() {
                     <ul className="space-y-2">
                       {notesList.map((note, idx) => (
                         <li key={idx} className="bg-surface-container p-4 rounded-lg border border-outline-variant/30 text-sm flex gap-3 items-start shadow-sm">
-                          <span className="material-symbols-outlined text-outline-variant mt-0.5">sticky_note_2</span>
+                          <MdStickyNote2 className="text-outline-variant mt-0.5" />
                           <span className="flex-1">{note}</span>
                         </li>
                       ))}
@@ -285,7 +286,7 @@ export default function StudentLearningPage() {
                   className={`flex items-center justify-between p-2.5 rounded-lg cursor-pointer transition-colors ${activeLesson === "1.1" ? "bg-surface-container border border-primary/20" : "hover:bg-surface-container"}`}
                 >
                   <div className="flex items-center gap-3">
-                    <span className="material-symbols-outlined text-secondary text-[20px] filled">check_circle</span>
+                    <MdCheckCircle className="text-secondary text-[20px]" />
                     <span className="font-body-md text-sm text-on-surface">1.1 Introduction to Camera Setups</span>
                   </div>
                   <span className="font-label-sm text-[11px] text-outline">15:00</span>
@@ -297,7 +298,7 @@ export default function StudentLearningPage() {
                   className={`flex items-center justify-between p-2.5 rounded-lg cursor-pointer transition-colors ${activeLesson === "1.2" ? "bg-surface-container border border-primary/20" : "hover:bg-surface-container"}`}
                 >
                   <div className="flex items-center gap-3">
-                    <span className="material-symbols-outlined text-secondary text-[20px] filled">check_circle</span>
+                    <MdCheckCircle className="text-secondary text-[20px]" />
                     <span className="font-body-md text-sm text-on-surface">1.2 Psychology of Composition</span>
                   </div>
                   <span className="font-label-sm text-[11px] text-outline">30:00</span>
@@ -315,7 +316,7 @@ export default function StudentLearningPage() {
                   className={`flex items-center justify-between p-2.5 rounded-lg cursor-pointer transition-colors ${activeLesson === "2.1" ? "bg-surface-container border border-primary/20" : "hover:bg-surface-container"}`}
                 >
                   <div className="flex items-center gap-3">
-                    <span className="material-symbols-outlined text-secondary text-[20px] filled">check_circle</span>
+                    <MdCheckCircle className="text-secondary text-[20px]" />
                     <span className="font-body-md text-sm text-on-surface">2.1 Lighting Techniques</span>
                   </div>
                   <span className="font-label-sm text-[11px] text-outline">25:00</span>
@@ -327,7 +328,7 @@ export default function StudentLearningPage() {
                   className={`flex items-center justify-between p-2.5 rounded-lg cursor-pointer transition-colors ${activeLesson === "2.2" ? "bg-surface-container border border-primary/20" : "hover:bg-surface-container"}`}
                 >
                   <div className="flex items-center gap-3">
-                    <span className="material-symbols-outlined text-secondary text-[20px] filled">check_circle</span>
+                    <MdCheckCircle className="text-secondary text-[20px]" />
                     <span className="font-body-md text-sm text-on-surface">2.2 Audio Mastery &amp; Lavs</span>
                   </div>
                   <span className="font-label-sm text-[11px] text-outline">40:00</span>
@@ -339,7 +340,7 @@ export default function StudentLearningPage() {
                   className={`flex items-center justify-between p-2.5 rounded-lg cursor-pointer transition-colors ${activeLesson === "2.3" ? "bg-surface-container border border-primary/30 shadow-sm" : "hover:bg-surface-container"}`}
                 >
                   <div className="flex items-center gap-3">
-                    <span className="material-symbols-outlined text-primary text-[20px]">play_circle</span>
+                    <MdOutlinePlayCircle className="text-primary text-[20px]" />
                     <span className="font-body-md text-sm font-semibold text-primary">2.3 Visual Hook &amp; Composition</span>
                   </div>
                   <span className="font-label-sm text-[11px] text-primary">45:00</span>
@@ -351,7 +352,7 @@ export default function StudentLearningPage() {
                   className={`flex items-center justify-between p-2.5 rounded-lg cursor-pointer transition-colors ${activeLesson === "2.4" ? "bg-surface-container border border-primary/20 animate-pulse" : "hover:bg-surface-container opacity-60"}`}
                 >
                   <div className="flex items-center gap-3">
-                    <span className="material-symbols-outlined text-outline-variant text-[20px]">quiz</span>
+                    <MdQuiz className="text-outline-variant text-[20px]" />
                     <span className="font-body-md text-sm italic text-on-surface-variant">2.4 Final Script Feedback (Draft)</span>
                   </div>
                   <span className="font-label-sm text-[11px] text-outline">10:00</span>

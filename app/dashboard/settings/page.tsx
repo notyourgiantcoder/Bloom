@@ -1,4 +1,5 @@
 "use client";
+import { MdPhotoCamera, MdCheckCircle, MdArrowForward, MdCheck, MdDownload } from "react-icons/md";
 
 export default function SettingsPage() {
   return (
@@ -30,8 +31,8 @@ export default function SettingsPage() {
               <div className="w-24 h-24 rounded-full overflow-hidden border border-outline-variant/30 bg-surface-container flex items-center justify-center">
                 <div className="w-full h-full bg-primary/20 flex items-center justify-center text-primary font-headline-md text-headline-md">E</div>
               </div>
-              <button aria-label="Upload new photo" className="absolute bottom-0 right-0 bg-surface border border-outline-variant/30 p-1.5 rounded-full text-on-surface-variant hover:text-primary hover:bg-surface-container transition-colors shadow-sm">
-                <span className="material-symbols-outlined text-[18px]">photo_camera</span>
+              <button aria-label="Upload new photo" className="absolute bottom-0 right-0 bg-primary text-on-primary w-8 h-8 rounded-full flex items-center justify-center hover:bg-surface-tint transition-colors shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2">
+                <MdPhotoCamera className="text-[18px]" />
               </button>
             </div>
             <div className="flex-1 space-y-4 w-full">
@@ -68,14 +69,14 @@ export default function SettingsPage() {
               <div className="font-headline-md text-headline-md text-primary mb-1">MediLab Pro</div>
               <div className="font-body-md text-on-surface-variant mb-6">₹2,499 / month</div>
               <ul className="space-y-2 mb-6">
-                <li className="flex items-center gap-2 font-body-md text-sm text-on-surface">
-                  <span className="material-symbols-outlined text-[16px] text-secondary">check_circle</span> Unlimited Courses
+                <li className="flex items-center gap-2 font-body-md text-sm text-on-surface-variant">
+                  <MdCheckCircle className="text-[16px] text-secondary" /> Unlimited Courses
                 </li>
-                <li className="flex items-center gap-2 font-body-md text-sm text-on-surface">
-                  <span className="material-symbols-outlined text-[16px] text-secondary">check_circle</span> Custom Domain
+                <li className="flex items-center gap-2 font-body-md text-sm text-on-surface-variant">
+                  <MdCheckCircle className="text-[16px] text-secondary" /> Custom Domain
                 </li>
-                <li className="flex items-center gap-2 font-body-md text-sm text-on-surface">
-                  <span className="material-symbols-outlined text-[16px] text-secondary">check_circle</span> Advanced Analytics
+                <li className="flex items-center gap-2 font-body-md text-sm text-on-surface-variant">
+                  <MdCheckCircle className="text-[16px] text-secondary" /> Advanced Analytics
                 </li>
               </ul>
             </div>
@@ -88,8 +89,8 @@ export default function SettingsPage() {
           <div className="col-span-1 md:col-span-2 bg-surface-container-lowest border border-outline-variant/30 rounded-xl p-6 card-shadow">
             <div className="flex justify-between items-center mb-6">
               <h3 className="font-headline-sm text-headline-sm text-primary">Billing History</h3>
-              <button className="text-secondary hover:underline font-label-sm text-label-sm flex items-center gap-1 transition-colors">
-                View All <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
+              <button className="font-label-md text-sm text-primary hover:text-surface-tint transition-colors flex items-center gap-1">
+                View All <MdArrowForward className="text-[16px]" />
               </button>
             </div>
             <div className="overflow-x-auto">
@@ -108,12 +109,12 @@ export default function SettingsPage() {
                     <td className="py-4 px-2">₹2,499.00</td>
                     <td className="py-4 px-2">
                       <span className="inline-flex items-center gap-1 text-secondary">
-                        <span className="material-symbols-outlined text-[14px]">check</span> Paid
+                        <MdCheck className="text-[14px]" /> Paid
                       </span>
                     </td>
                     <td className="py-4 px-2 text-right">
                       <button aria-label="Download Invoice" className="text-on-surface-variant hover:text-primary transition-colors">
-                        <span className="material-symbols-outlined">download</span>
+                        <MdDownload />
                       </button>
                     </td>
                   </tr>
@@ -122,12 +123,12 @@ export default function SettingsPage() {
                     <td className="py-4 px-2">₹2,499.00</td>
                     <td className="py-4 px-2">
                       <span className="inline-flex items-center gap-1 text-secondary">
-                        <span className="material-symbols-outlined text-[14px]">check</span> Paid
+                        <MdCheck className="text-[14px]" /> Paid
                       </span>
                     </td>
                     <td className="py-4 px-2 text-right">
                       <button aria-label="Download Invoice" className="text-on-surface-variant hover:text-primary transition-colors">
-                        <span className="material-symbols-outlined">download</span>
+                        <MdDownload />
                       </button>
                     </td>
                   </tr>
@@ -136,12 +137,12 @@ export default function SettingsPage() {
                     <td className="py-4 px-2">₹2,499.00</td>
                     <td className="py-4 px-2">
                       <span className="inline-flex items-center gap-1 text-secondary">
-                        <span className="material-symbols-outlined text-[14px]">check</span> Paid
+                        <MdCheck className="text-[14px]" /> Paid
                       </span>
                     </td>
                     <td className="py-4 px-2 text-right">
                       <button aria-label="Download Invoice" className="text-on-surface-variant hover:text-primary transition-colors">
-                        <span className="material-symbols-outlined">download</span>
+                        <MdDownload />
                       </button>
                     </td>
                   </tr>

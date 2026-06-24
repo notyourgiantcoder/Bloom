@@ -1,5 +1,7 @@
 "use client";
 
+import { MdFilterList, MdSearch, MdImage, MdAttachFile, MdMood, MdPushPin, MdChatBubble, MdMoreHoriz, MdAddReaction, MdTrendingUp, MdEvent, MdPersonAdd } from "react-icons/md";
+
 export default function CommunityPage() {
   return (
     <div className="max-w-container-max mx-auto flex flex-col lg:flex-row gap-gutter relative">
@@ -9,11 +11,11 @@ export default function CommunityPage() {
         <div className="mb-stack-sm flex justify-between items-end">
           <h1 className="font-headline-md text-headline-md text-primary">Community Feed</h1>
           <div className="flex gap-2">
-            <button className="text-on-surface-variant hover:text-primary transition-colors p-2 rounded-full hover:bg-surface-container">
-              <span className="material-symbols-outlined">filter_list</span>
+            <button className="bg-surface-container border border-outline-variant/30 px-3 py-2 rounded-lg text-on-surface hover:bg-surface-container-high transition-colors shadow-sm flex items-center justify-center">
+              <MdFilterList />
             </button>
-            <button className="text-on-surface-variant hover:text-primary transition-colors p-2 rounded-full hover:bg-surface-container">
-              <span className="material-symbols-outlined">search</span>
+            <button className="bg-surface-container border border-outline-variant/30 px-3 py-2 rounded-lg text-on-surface hover:bg-surface-container-high transition-colors shadow-sm flex items-center justify-center">
+              <MdSearch />
             </button>
           </div>
         </div>
@@ -35,13 +37,13 @@ export default function CommunityPage() {
           <div className="flex justify-between items-center border-t border-outline-variant/20 pt-3">
             <div className="flex gap-2">
               <button className="text-on-surface-variant hover:text-primary transition-colors p-2 rounded-full hover:bg-surface-container flex items-center justify-center">
-                <span className="material-symbols-outlined text-[20px]">image</span>
+                <MdImage className="text-[20px]" />
               </button>
               <button className="text-on-surface-variant hover:text-primary transition-colors p-2 rounded-full hover:bg-surface-container flex items-center justify-center">
-                <span className="material-symbols-outlined text-[20px]">attach_file</span>
+                <MdAttachFile className="text-[20px]" />
               </button>
               <button className="text-on-surface-variant hover:text-primary transition-colors p-2 rounded-full hover:bg-surface-container flex items-center justify-center">
-                <span className="material-symbols-outlined text-[20px]">mood</span>
+                <MdMood className="text-[20px]" />
               </button>
             </div>
             <button className="bg-primary text-on-primary px-4 py-1.5 rounded-lg font-label-md text-label-md hover:bg-surface-tint transition-colors focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-surface">
@@ -51,10 +53,9 @@ export default function CommunityPage() {
         </div>
 
         {/* Pinned Post */}
-        <article className="bg-secondary-container/30 rounded-xl border border-secondary/20 p-stack-md card-shadow relative overflow-hidden">
-          <div className="absolute top-0 right-0 bg-secondary text-on-primary px-3 py-1 rounded-bl-lg font-label-sm text-label-sm flex items-center gap-1">
-            <span className="material-symbols-outlined text-[14px]">push_pin</span>
-            Pinned
+        <article className="bg-primary/5 border border-primary/20 rounded-xl p-6 relative overflow-hidden">
+          <div className="absolute top-4 right-4 flex items-center gap-1 text-primary font-label-sm text-[11px] font-semibold bg-primary/10 px-2 py-1 rounded-full">
+            <MdPushPin className="text-[14px]" /> Pinned
           </div>
           <div className="flex gap-3 items-center mb-3">
             <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-on-primary font-headline-sm text-headline-sm">
@@ -77,7 +78,7 @@ export default function CommunityPage() {
               <span>89</span>
             </div>
             <button className="ml-auto text-on-surface-variant hover:text-primary transition-colors font-label-md text-label-sm flex items-center gap-1">
-              <span className="material-symbols-outlined text-[16px]">chat_bubble</span>
+              <MdChatBubble className="text-[16px]" />
               42 Comments
             </button>
           </div>
@@ -96,7 +97,7 @@ export default function CommunityPage() {
               </div>
             </div>
             <button className="text-on-surface-variant hover:text-primary transition-colors p-1 rounded-full hover:bg-surface-container">
-              <span className="material-symbols-outlined">more_horiz</span>
+              <MdMoreHoriz />
             </button>
           </div>
           <div className="mb-4">
@@ -110,7 +111,7 @@ export default function CommunityPage() {
               <span>7</span>
             </div>
             <button className="ml-auto text-on-surface-variant hover:text-primary transition-colors font-label-md text-label-sm flex items-center gap-1">
-              <span className="material-symbols-outlined text-[16px]">chat_bubble</span>
+              <MdChatBubble className="text-[16px]" />
               12 Comments
             </button>
           </div>
@@ -142,19 +143,20 @@ export default function CommunityPage() {
               </div>
             </div>
             <button className="text-on-surface-variant hover:text-primary transition-colors p-1 rounded-full hover:bg-surface-container">
-              <span className="material-symbols-outlined">more_horiz</span>
+              <MdMoreHoriz />
             </button>
           </div>
           <div className="mb-4">
             <p className="text-on-surface">Looking for feedback on these new cellular models for the digital design deck. Trying to balance scientific accuracy with a more accessible visual style. Thoughts?</p>
           </div>
-          <div className="flex items-center gap-4 border-t border-outline-variant/20 pt-3">
-            <button className="text-on-surface-variant hover:text-primary transition-colors font-label-md text-label-sm flex items-center gap-1 group">
-              <span className="material-symbols-outlined text-[20px] group-hover:scale-110 transition-transform">add_reaction</span>
-              React
-            </button>
-            <button className="ml-auto text-on-surface-variant hover:text-primary transition-colors font-label-md text-label-sm flex items-center gap-1">
-              <span className="material-symbols-outlined text-[16px]">chat_bubble</span>
+          <div className="mt-4 pt-4 border-t border-outline-variant/20 flex items-center justify-between">
+            <div className="flex gap-4 items-center">
+              <button className="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant hover:text-secondary hover:bg-secondary/10 transition-colors group">
+                <MdAddReaction className="text-[20px] group-hover:scale-110 transition-transform" />
+              </button>
+            </div>
+            <button className="text-on-surface-variant hover:text-primary transition-colors font-label-md text-label-sm flex items-center gap-1">
+              <MdChatBubble className="text-[16px]" />
               0 Comments
             </button>
           </div>
@@ -166,7 +168,7 @@ export default function CommunityPage() {
         {/* Trending Posts Card */}
         <div className="bg-surface-container-lowest rounded-xl border border-outline-variant/30 p-stack-md card-shadow">
           <h3 className="font-headline-sm text-[18px] text-primary mb-4 flex items-center gap-2">
-            <span className="material-symbols-outlined text-secondary">trending_up</span>
+            <MdTrendingUp className="text-secondary" />
             Trending Discussions
           </h3>
           <ul className="flex flex-col gap-3">
@@ -188,7 +190,7 @@ export default function CommunityPage() {
         {/* Upcoming Sessions */}
         <div className="bg-surface-container-lowest rounded-xl border border-outline-variant/30 p-stack-md card-shadow">
           <h3 className="font-headline-sm text-[18px] text-primary mb-4 flex items-center gap-2">
-            <span className="material-symbols-outlined text-secondary">event</span>
+            <MdEvent className="text-secondary" />
             Upcoming Live Sessions
           </h3>
           <div className="flex flex-col gap-4">
@@ -223,7 +225,7 @@ export default function CommunityPage() {
             <h3 className="font-headline-sm text-[18px] mb-2">Grow the Community</h3>
             <p className="font-body-md text-label-sm text-on-primary/80 mb-4">Invite fellow creators to Cohort Pro and earn workspace credits.</p>
             <button className="w-full bg-surface-container-lowest text-primary py-2 px-4 rounded-lg font-label-md text-label-md hover:bg-surface-container transition-colors shadow-sm flex items-center justify-center gap-2">
-              <span className="material-symbols-outlined text-[18px]">person_add</span>
+              <MdPersonAdd className="text-[18px]" />
               Invite Members
             </button>
           </div>

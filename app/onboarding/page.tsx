@@ -1,4 +1,5 @@
 "use client";
+import { MdDraw, MdSchool, MdArrowForward, MdArrowBack, MdAddAPhoto } from "react-icons/md";
 
 import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
@@ -173,8 +174,8 @@ export default function OnboardingPage() {
                   }`}
                   onClick={() => setSelectedRole("creator")}
                 >
-                  <div className="w-12 h-12 bg-surface-container rounded-lg flex items-center justify-center mb-4 text-primary">
-                    <span className="material-symbols-outlined filled">draw</span>
+                  <div className="w-12 h-12 rounded-full bg-secondary-container/50 text-secondary flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                    <MdDraw />
                   </div>
                   <h3 className="font-headline-sm text-headline-sm mb-2">Creator</h3>
                   <p className="text-on-surface-variant text-sm">I want to build courses, share knowledge, and grow an audience.</p>
@@ -188,8 +189,8 @@ export default function OnboardingPage() {
                   }`}
                   onClick={() => setSelectedRole("student")}
                 >
-                  <div className="w-12 h-12 bg-surface-container rounded-lg flex items-center justify-center mb-4 text-primary">
-                    <span className="material-symbols-outlined filled">school</span>
+                  <div className="w-12 h-12 rounded-full bg-tertiary-container/50 text-tertiary flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                    <MdSchool />
                   </div>
                   <h3 className="font-headline-sm text-headline-sm mb-2">Student</h3>
                   <p className="text-on-surface-variant text-sm">I&apos;m here to learn, explore courses, and join communities.</p>
@@ -201,7 +202,7 @@ export default function OnboardingPage() {
                   onClick={() => handleNextStep(2)}
                   disabled={!selectedRole}
                 >
-                  Continue <span className="material-symbols-outlined text-sm">arrow_forward</span>
+                  Continue <MdArrowForward className="text-sm" />
                 </button>
               </div>
             </div>
@@ -237,14 +238,14 @@ export default function OnboardingPage() {
                   className="text-on-surface-variant hover:text-primary px-4 py-3 font-label-md text-label-md transition-colors flex items-center gap-2"
                   onClick={() => handlePrevStep(1)}
                 >
-                  <span className="material-symbols-outlined text-sm">arrow_back</span> Back
+                  <MdArrowBack className="text-sm" /> Back
                 </button>
                 <button
                   className="bg-primary text-on-primary hover:bg-primary-container px-6 py-3 rounded-lg font-label-md text-label-md transition-colors flex items-center gap-2 focus:ring-2 focus:ring-primary focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed"
                   onClick={() => handleNextStep(3)}
                   disabled={selectedTopics.length === 0}
                 >
-                  Continue <span className="material-symbols-outlined text-sm">arrow_forward</span>
+                  Continue <MdArrowForward className="text-sm" />
                 </button>
               </div>
             </div>
@@ -317,14 +318,14 @@ export default function OnboardingPage() {
                   className="text-on-surface-variant hover:text-primary px-4 py-3 font-label-md text-label-md transition-colors flex items-center gap-2"
                   onClick={() => handlePrevStep(2)}
                 >
-                  <span className="material-symbols-outlined text-sm">arrow_back</span> Back
+                  <MdArrowBack className="text-sm" /> Back
                 </button>
                 <button
                   className="bg-primary text-on-primary hover:bg-primary-container px-6 py-3 rounded-lg font-label-md text-label-md transition-colors flex items-center gap-2 focus:ring-2 focus:ring-primary focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed"
                   onClick={handleCredentialsContinue}
                   disabled={!email || !password || !confirmPassword}
                 >
-                  Continue <span className="material-symbols-outlined text-sm">arrow_forward</span>
+                  Continue <MdArrowForward className="text-sm" />
                 </button>
               </div>
             </div>
@@ -346,16 +347,18 @@ export default function OnboardingPage() {
                 <div className="flex flex-col items-center gap-4 mb-4">
                   <button
                     type="button"
-                    className="w-24 h-24 rounded-full bg-surface-container border-2 border-dashed border-outline-variant flex items-center justify-center text-on-surface-variant cursor-pointer hover:bg-surface-container-high transition-colors overflow-hidden focus:outline-none focus:ring-2 focus:ring-primary"
                     onClick={() => photoInputRef.current?.click()}
                     aria-label="Upload profile photo"
+                    className="focus:outline-none"
                   >
-                    {photoPreview ? (
-                      // eslint-disable-next-line @next/next/no-img-element
-                      <img src={photoPreview} alt="Profile preview" className="w-full h-full object-cover" />
-                    ) : (
-                      <span className="material-symbols-outlined text-[32px]">add_a_photo</span>
-                    )}
+                    <div className="w-24 h-24 rounded-full bg-surface-variant border-2 border-dashed border-outline-variant flex items-center justify-center text-outline-variant hover:bg-surface-container-high hover:text-primary transition-colors cursor-pointer group overflow-hidden">
+                      {photoPreview ? (
+                        // eslint-disable-next-line @next/next/no-img-element
+                        <img src={photoPreview} alt="Profile preview" className="w-full h-full object-cover" />
+                      ) : (
+                        <MdAddAPhoto className="text-[32px]" />
+                      )}
+                    </div>
                   </button>
                   <span className="font-label-sm text-label-sm text-on-surface-variant">
                     {photoPreview ? "Tap to change photo" : "Upload Profile Photo"}
@@ -387,12 +390,8 @@ export default function OnboardingPage() {
               </div>
 
               <div className="mt-12 flex justify-between items-center">
-                <button
-                  className="text-on-surface-variant hover:text-primary px-4 py-3 font-label-md text-label-md transition-colors flex items-center gap-2"
-                  onClick={() => handlePrevStep(3)}
-                  disabled={submitting}
-                >
-                  <span className="material-symbols-outlined text-sm">arrow_back</span> Back
+                <button type="button" onClick={() => handlePrevStep(3)} className="text-on-surface-variant hover:text-on-surface flex items-center gap-2 transition-colors">
+                  <MdArrowBack className="text-sm" /> Back
                 </button>
                 <button
                   className="bg-primary text-on-primary hover:bg-primary-container px-8 py-3 rounded-lg font-label-md text-label-md transition-colors flex items-center gap-2 focus:ring-2 focus:ring-primary focus:outline-none shadow-sm disabled:opacity-60 disabled:cursor-not-allowed"
@@ -409,7 +408,7 @@ export default function OnboardingPage() {
                     </>
                   ) : (
                     <>
-                      Finish setup <span className="material-symbols-outlined text-sm">arrow_forward</span>
+                      Finish setup <MdArrowForward className="text-sm" />
                     </>
                   )}
                 </button>

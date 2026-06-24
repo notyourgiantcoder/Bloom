@@ -1,4 +1,5 @@
 "use client";
+import { MdCheckCircle, MdRemove, MdCheck, MdAdd } from "react-icons/md";
 
 import { useState } from "react";
 import Link from "next/link";
@@ -86,15 +87,15 @@ export default function PricingPage() {
             
             <ul className="space-y-4 mb-stack-lg flex-grow">
               <li className="flex items-start gap-3">
-                <span className="material-symbols-outlined text-secondary text-[20px] filled">check_circle</span>
+                <MdCheckCircle className="text-secondary text-[20px]" />
                 <span className="font-body-md text-sm text-on-surface">Up to 3 active projects</span>
               </li>
               <li className="flex items-start gap-3">
-                <span className="material-symbols-outlined text-secondary text-[20px] filled">check_circle</span>
+                <MdCheckCircle className="text-secondary text-[20px]" />
                 <span className="font-body-md text-sm text-on-surface">Basic analytics dashboard</span>
               </li>
               <li className="flex items-start gap-3">
-                <span className="material-symbols-outlined text-secondary text-[20px] filled">check_circle</span>
+                <MdCheckCircle className="text-secondary text-[20px]" />
                 <span className="font-body-md text-sm text-on-surface">Community support access</span>
               </li>
             </ul>
@@ -123,19 +124,19 @@ export default function PricingPage() {
             
             <ul className="space-y-4 mb-stack-lg flex-grow">
               <li className="flex items-start gap-3">
-                <span className="material-symbols-outlined text-primary text-[20px] filled">check_circle</span>
+                <MdCheckCircle className="text-primary text-[20px]" />
                 <span className="font-body-md text-sm text-on-surface font-medium">Unlimited projects</span>
               </li>
               <li className="flex items-start gap-3">
-                <span className="material-symbols-outlined text-primary text-[20px] filled">check_circle</span>
+                <MdCheckCircle className="text-primary text-[20px]" />
                 <span className="font-body-md text-sm text-on-surface">Advanced audience analytics</span>
               </li>
               <li className="flex items-start gap-3">
-                <span className="material-symbols-outlined text-primary text-[20px] filled">check_circle</span>
+                <MdCheckCircle className="text-primary text-[20px]" />
                 <span className="font-body-md text-sm text-on-surface">Custom domain integration</span>
               </li>
               <li className="flex items-start gap-3">
-                <span className="material-symbols-outlined text-primary text-[20px] filled">check_circle</span>
+                <MdCheckCircle className="text-primary text-[20px]" />
                 <span className="font-body-md text-sm text-on-surface">Priority email support</span>
               </li>
             </ul>
@@ -161,19 +162,19 @@ export default function PricingPage() {
             
             <ul className="space-y-4 mb-stack-lg flex-grow">
               <li className="flex items-start gap-3">
-                <span className="material-symbols-outlined text-tertiary-container text-[20px] filled">check_circle</span>
+                <MdCheckCircle className="text-tertiary-container text-[20px]" />
                 <span className="font-body-md text-sm text-on-surface font-medium">Everything in Creator Pro</span>
               </li>
               <li className="flex items-start gap-3">
-                <span className="material-symbols-outlined text-tertiary-container text-[20px] filled">check_circle</span>
+                <MdCheckCircle className="text-tertiary-container text-[20px]" />
                 <span className="font-body-md text-sm text-on-surface">Full AI Studio Access</span>
               </li>
               <li className="flex items-start gap-3">
-                <span className="material-symbols-outlined text-tertiary-container text-[20px] filled">check_circle</span>
+                <MdCheckCircle className="text-tertiary-container text-[20px]" />
                 <span className="font-body-md text-sm text-on-surface">White-labeled courses</span>
               </li>
               <li className="flex items-start gap-3">
-                <span className="material-symbols-outlined text-tertiary-container text-[20px] filled">check_circle</span>
+                <MdCheckCircle className="text-tertiary-container text-[20px]" />
                 <span className="font-body-md text-sm text-on-surface">Dedicated success manager</span>
               </li>
             </ul>
@@ -213,9 +214,9 @@ export default function PricingPage() {
                 </tr>
                 <tr className="hover:bg-surface/30 transition-colors">
                   <td className="p-4 font-body-md text-on-surface">AI Studio Access</td>
-                  <td className="p-4 text-center text-outline-variant"><span className="material-symbols-outlined text-[18px]">remove</span></td>
-                  <td className="p-4 text-center text-outline-variant bg-primary/5"><span className="material-symbols-outlined text-[18px]">remove</span></td>
-                  <td className="p-4 text-center text-tertiary-container bg-tertiary-fixed/10"><span className="material-symbols-outlined text-[20px] filled text-secondary">check</span></td>
+                  <td className="p-4 text-center text-outline-variant"><MdRemove className="inline-block text-[18px]" /></td>
+                  <td className="p-4 text-center text-outline-variant bg-primary/5"><MdRemove className="inline-block text-[18px]" /></td>
+                  <td className="p-4 text-center text-tertiary-container bg-tertiary-fixed/10"><MdCheck className="inline-block text-[20px] text-secondary" /></td>
                 </tr>
               </tbody>
             </table>
@@ -232,7 +233,7 @@ export default function PricingPage() {
                 className="w-full flex justify-between items-center text-left focus:outline-none"
               >
                 <span className="font-label-md text-label-md text-on-surface">Can I switch plans later?</span>
-                <span className="material-symbols-outlined text-outline">{openFaq === 0 ? "remove" : "add"}</span>
+                {openFaq === 0 ? <MdRemove className="text-outline" /> : <MdAdd className="text-outline" />}
               </button>
               {openFaq === 0 && (
                 <div className="mt-2 font-body-md text-body-md text-on-surface-variant">
@@ -246,7 +247,7 @@ export default function PricingPage() {
                 className="w-full flex justify-between items-center text-left focus:outline-none"
               >
                 <span className="font-label-md text-label-md text-on-surface">What payment methods do you accept?</span>
-                <span className="material-symbols-outlined text-outline">{openFaq === 1 ? "remove" : "add"}</span>
+                {openFaq === 1 ? <MdRemove className="text-outline" /> : <MdAdd className="text-outline" />}
               </button>
               {openFaq === 1 && (
                 <div className="mt-2 font-body-md text-body-md text-on-surface-variant">

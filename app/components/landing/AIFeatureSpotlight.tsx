@@ -1,3 +1,4 @@
+import { MdUploadFile, MdPlayArrow, MdHourglassEmpty } from "react-icons/md";
 export default function AIFeatureSpotlight() {
   return (
     <section className="py-24 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
@@ -14,7 +15,7 @@ export default function AIFeatureSpotlight() {
         <div className="lg:col-span-7 bg-surface-container p-8 rounded-2xl border border-outline-variant relative overflow-hidden flex gap-6">
           {/* Fake UI Left */}
           <div className="flex-1 bg-surface-container-lowest border border-outline-variant rounded-lg p-6 flex flex-col items-center justify-center border-dashed gap-4 text-center">
-            <span className="material-symbols-outlined text-primary-fixed-dim text-4xl">upload_file</span>
+            <MdUploadFile className="text-primary-fixed-dim text-4xl" />
             <p className="font-label-md text-label-md text-on-surface-variant">Drag neuroscience_v4.pdf here</p>
             <div className="w-full h-1 bg-surface-variant rounded mt-4 overflow-hidden">
               <div className="w-full h-full bg-secondary animate-pulse"></div>
@@ -24,7 +25,7 @@ export default function AIFeatureSpotlight() {
           <div className="flex-1 flex flex-col gap-3">
             <div className="bg-surface-container-lowest border border-outline-variant rounded-lg p-4 flex items-center gap-3 ambient-shadow">
               <div className="w-16 h-10 bg-primary-container rounded flex items-center justify-center">
-                <span className="material-symbols-outlined text-on-primary-container text-sm">play_arrow</span>
+                <MdPlayArrow className="text-on-primary-container text-sm" />
               </div>
               <div>
                 <p className="font-label-sm text-label-sm text-on-surface">1. Intro to Synapses</p>
@@ -33,7 +34,7 @@ export default function AIFeatureSpotlight() {
             </div>
             <div className="bg-surface-container-lowest border border-outline-variant rounded-lg p-4 flex items-center gap-3 ambient-shadow">
               <div className="w-16 h-10 bg-surface-variant rounded flex items-center justify-center">
-                <span className="material-symbols-outlined text-outline text-sm">hourglass_empty</span>
+                <MdHourglassEmpty className="text-outline text-sm" />
               </div>
               <div>
                 <p className="font-label-sm text-label-sm text-on-surface">2. Neuroplasticity</p>

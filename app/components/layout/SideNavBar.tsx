@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import { MdDashboard, MdSchool, MdAutoAwesome, MdGroups, MdAnalytics, MdSettings, MdAdd, MdAccountCircle, MdMenu } from "react-icons/md";
 
 export default function SideNavBar() {
   return (
@@ -20,38 +21,38 @@ export default function SideNavBar() {
         <div className="flex flex-col gap-1 flex-1 px-2">
           {/* Active: Dashboard */}
           <Link href="/dashboard" aria-current="page" className="flex items-center gap-3 text-secondary-container dark:text-secondary border-l-4 border-secondary bg-on-primary-fixed-variant/10 px-4 py-3 font-label-md text-label-md rounded-r-lg translate-x-1 transition-transform">
-            <span className="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+            <MdDashboard />
             Dashboard
           </Link>
           <Link href="/course-builder" className="flex items-center gap-3 text-on-primary/70 dark:text-on-primary-container/70 px-4 py-3 font-label-md text-label-md rounded-r-lg border-l-4 border-transparent hover:bg-on-primary-fixed-variant/20 hover:text-on-primary transition-all">
-            <span className="material-symbols-outlined" data-icon="school">school</span>
+            <MdSchool />
             Courses
           </Link>
           <Link href="/dashboard/ai-studio" className="flex items-center gap-3 text-on-primary/70 dark:text-on-primary-container/70 px-4 py-3 font-label-md text-label-md rounded-r-lg border-l-4 border-transparent hover:bg-on-primary-fixed-variant/20 hover:text-on-primary transition-all">
-            <span className="material-symbols-outlined" data-icon="auto_awesome">auto_awesome</span>
+            <MdAutoAwesome />
             AI Studio
           </Link>
           <Link href="/dashboard/community" className="flex items-center gap-3 text-on-primary/70 dark:text-on-primary-container/70 px-4 py-3 font-label-md text-label-md rounded-r-lg border-l-4 border-transparent hover:bg-on-primary-fixed-variant/20 hover:text-on-primary transition-all">
-            <span className="material-symbols-outlined" data-icon="groups">groups</span>
+            <MdGroups />
             Community
           </Link>
           <Link href="/dashboard/analytics" className="flex items-center gap-3 text-on-primary/70 dark:text-on-primary-container/70 px-4 py-3 font-label-md text-label-md rounded-r-lg border-l-4 border-transparent hover:bg-on-primary-fixed-variant/20 hover:text-on-primary transition-all">
-            <span className="material-symbols-outlined" data-icon="analytics">analytics</span>
+            <MdAnalytics />
             Analytics
           </Link>
           <Link href="/dashboard/settings" className="flex items-center gap-3 text-on-primary/70 dark:text-on-primary-container/70 px-4 py-3 font-label-md text-label-md rounded-r-lg border-l-4 border-transparent hover:bg-on-primary-fixed-variant/20 hover:text-on-primary transition-all">
-            <span className="material-symbols-outlined" data-icon="settings">settings</span>
+            <MdSettings />
             Settings
           </Link>
         </div>
         {/* Footer Actions */}
         <div className="px-6 mt-auto flex flex-col gap-4">
           <button className="w-full bg-surface-container-lowest text-primary font-label-md text-label-md py-2 rounded-lg hover:bg-surface-container-low transition-colors flex items-center justify-center gap-2 border border-surface-container-low">
-            <span className="material-symbols-outlined text-[18px]">add</span>
+            <MdAdd className="text-[18px]" />
             New Project
           </button>
           <Link href="/creator/rostova" className="flex items-center gap-3 text-on-primary/70 dark:text-on-primary-container/70 py-2 font-label-md text-label-md hover:text-on-primary transition-colors">
-            <span className="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+            <MdAccountCircle />
             Profile
           </Link>
         </div>
@@ -61,7 +62,7 @@ export default function SideNavBar() {
       <header className="md:hidden bg-primary text-on-primary w-full h-16 fixed top-0 flex items-center justify-between px-4 z-50 shadow-sm">
         <h1 className="font-headline-sm text-headline-sm">Creator Workspace</h1>
         <button className="text-on-primary">
-          <span className="material-symbols-outlined">menu</span>
+          <MdMenu />
         </button>
       </header>
     </>

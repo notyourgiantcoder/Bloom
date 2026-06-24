@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import TopNavBar from "../../components/layout/TopNavBar";
 import Footer from "../../components/layout/Footer";
+import { MdChat, MdStar, MdArrowForward, MdLanguage, MdCampaign, MdShare } from "react-icons/md";
 
 export default function CreatorPublicProfilePage() {
   const [email, setEmail] = useState("");
@@ -76,9 +77,8 @@ export default function CreatorPublicProfilePage() {
                   <p className="font-body-lg text-body-lg text-on-surface-variant mt-1">Visual Storyteller &amp; Creative Director</p>
                 </div>
                 <div className="flex gap-3">
-                  <button className="bg-transparent border border-outline-variant text-primary px-5 py-2.5 rounded-lg font-label-md text-label-md transition-colors flex items-center gap-2">
-                    <span className="material-symbols-outlined text-[18px]">chat</span>
-                    Message
+                  <button className="flex-1 bg-surface-container border border-outline-variant/30 text-on-surface font-label-md text-label-sm py-2 px-4 rounded-lg hover:bg-surface-variant transition-colors flex items-center justify-center gap-2 shadow-sm font-semibold">
+                    <MdChat className="text-[18px]" /> Message
                   </button>
                   <button className="bg-primary hover:opacity-90 text-on-primary px-6 py-2.5 rounded-lg font-label-md text-label-md transition-colors shadow-sm font-semibold">
                     Follow
@@ -115,8 +115,8 @@ export default function CreatorPublicProfilePage() {
                   <div className="font-label-sm text-[11px] text-on-surface-variant uppercase tracking-wider mt-1">Students</div>
                 </div>
                 <div className="text-center md:text-left">
-                  <div className="font-headline-sm text-[28px] text-primary flex items-center justify-center md:justify-start gap-1 font-bold">
-                    4.9 <span className="material-symbols-outlined text-secondary text-[20px] filled">star</span>
+                  <div className="font-label-sm text-sm text-on-surface-variant mt-2 flex items-center gap-1">
+                    4.9 <MdStar className="text-secondary text-[20px]" /> (12k students)
                   </div>
                   <div className="font-label-sm text-[11px] text-on-surface-variant uppercase tracking-wider mt-1">Avg Rating</div>
                 </div>
@@ -149,7 +149,7 @@ export default function CreatorPublicProfilePage() {
                     <div className="flex items-center justify-between mt-6 pt-4 border-t border-outline-variant/20">
                       <span className="font-headline-sm text-[20px] text-on-surface">₹299</span>
                       <Link href="/courses/anatomy" className="text-secondary font-label-md text-label-sm hover:underline flex items-center gap-1 font-bold">
-                        View Details <span className="material-symbols-outlined text-[14px] font-bold">arrow_forward</span>
+                        View Details <MdArrowForward className="text-[14px] font-bold" />
                       </Link>
                     </div>
                   </div>
@@ -175,7 +175,7 @@ export default function CreatorPublicProfilePage() {
                     <div className="flex items-center justify-between mt-6 pt-4 border-t border-outline-variant/20">
                       <span className="font-headline-sm text-[20px] text-on-surface">₹399</span>
                       <Link href="/courses/anatomy" className="text-secondary font-label-md text-label-sm hover:underline flex items-center gap-1 font-bold">
-                        View Details <span className="material-symbols-outlined text-[14px] font-bold">arrow_forward</span>
+                        View Details <MdArrowForward className="text-[14px] font-bold" />
                       </Link>
                     </div>
                   </div>
@@ -192,17 +192,17 @@ export default function CreatorPublicProfilePage() {
             <section className="bg-surface-container-lowest border border-outline-variant/30 rounded-xl p-6 card-shadow">
               <h3 className="font-headline-sm text-[18px] text-primary mb-4">Connect</h3>
               <div className="flex flex-col gap-3">
-                <a href="#" className="flex items-center gap-3 text-on-surface-variant hover:text-primary transition-colors py-1.5 font-label-md text-label-md">
-                  <span className="material-symbols-outlined text-outline">language</span>
-                  Portfolio Website
+                <a href="#" className="flex items-center gap-3 text-on-surface hover:text-primary transition-colors group">
+                  <MdLanguage className="text-outline" />
+                  <span className="font-body-md text-sm border-b border-transparent group-hover:border-primary">elenarostova.com</span>
                 </a>
-                <a href="#" className="flex items-center gap-3 text-on-surface-variant hover:text-primary transition-colors py-1.5 font-label-md text-label-md">
-                  <span className="material-symbols-outlined text-outline">campaign</span>
-                  Cohort Announcements
+                <a href="#" className="flex items-center gap-3 text-on-surface hover:text-primary transition-colors group">
+                  <MdCampaign className="text-outline" />
+                  <span className="font-body-md text-sm border-b border-transparent group-hover:border-primary">Newsletter</span>
                 </a>
-                <a href="#" className="flex items-center gap-3 text-on-surface-variant hover:text-primary transition-colors py-1.5 font-label-md text-label-md">
-                  <span className="material-symbols-outlined text-outline">share</span>
-                  Twitter / X
+                <a href="#" className="flex items-center gap-3 text-on-surface hover:text-primary transition-colors group">
+                  <MdShare className="text-outline" />
+                  <span className="font-body-md text-sm border-b border-transparent group-hover:border-primary">Twitter</span>
                 </a>
               </div>
             </section>

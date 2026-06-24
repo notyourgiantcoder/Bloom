@@ -1,4 +1,5 @@
 "use client";
+import { MdUploadFile, MdAddToDrive, MdLink, MdDownload, MdPlayArrow, MdTerminal, MdTune, MdExpandMore, MdAutoAwesome } from "react-icons/md";
 
 import { useEffect, useState, useRef } from "react";
 import { createRenderJob } from "../actions";
@@ -194,7 +195,7 @@ export default function VideoGenerator() {
             className="hidden" 
           />
           <div className="w-16 h-16 rounded-full bg-primary-fixed/30 flex items-center justify-center mb-stack-md group-hover:scale-105 transition-transform">
-            <span className="material-symbols-outlined text-[32px] text-primary">upload_file</span>
+            <MdUploadFile className="text-[32px] text-primary" />
           </div>
           <h3 className="font-headline-sm text-headline-sm text-primary mb-2">Upload Source Material</h3>
           <p className="font-body-md text-body-md text-on-surface-variant mb-stack-lg max-w-md">
@@ -209,11 +210,11 @@ export default function VideoGenerator() {
             </button>
             <span className="font-body-md text-body-md text-outline-variant">or import from</span>
             <button className="flex items-center gap-2 text-primary font-label-md text-label-md py-2 px-4 rounded-lg border border-outline-variant hover:bg-surface-container transition-colors bg-transparent">
-              <span className="material-symbols-outlined text-[18px]">add_to_drive</span>
+              <MdAddToDrive className="text-[18px]" />
               Drive
             </button>
             <button className="flex items-center gap-2 text-primary font-label-md text-label-md py-2 px-4 rounded-lg border border-outline-variant hover:bg-surface-container transition-colors bg-transparent">
-              <span className="material-symbols-outlined text-[18px]">link</span>
+              <MdLink className="text-[18px]" />
               Notion
             </button>
           </div>
@@ -224,7 +225,7 @@ export default function VideoGenerator() {
           <div className="flex justify-between items-center mb-stack-lg border-b border-outline-variant/30 pb-4">
             <h3 className="font-headline-sm text-headline-sm text-primary">Generated Course Lessons</h3>
             <button className="text-secondary font-label-md text-label-md hover:underline flex items-center gap-1">
-              Export All <span className="material-symbols-outlined text-[16px]">download</span>
+              Export All <MdDownload className="text-[16px]" />
             </button>
           </div>
           
@@ -243,7 +244,7 @@ export default function VideoGenerator() {
                   ></div>
                   <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-inverse-surface/20">
                     <div className="w-12 h-12 rounded-full bg-primary text-on-primary flex items-center justify-center backdrop-blur-sm shadow-md font-bold">
-                      <span className="material-symbols-outlined text-[28px] filled">play_arrow</span>
+                      <MdPlayArrow className="text-[28px]" />
                     </div>
                   </div>
                   <span className="absolute bottom-2 right-2 bg-inverse-surface/90 text-inverse-on-surface font-label-sm text-[10px] px-2 py-0.5 rounded backdrop-blur-md">02:45</span>
@@ -265,7 +266,7 @@ export default function VideoGenerator() {
                   ></div>
                   <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-inverse-surface/20">
                     <div className="w-12 h-12 rounded-full bg-primary text-on-primary flex items-center justify-center backdrop-blur-sm shadow-md font-bold">
-                      <span className="material-symbols-outlined text-[28px] filled">play_arrow</span>
+                      <MdPlayArrow className="text-[28px]" />
                     </div>
                   </div>
                   <span className="absolute bottom-2 right-2 bg-inverse-surface/90 text-inverse-on-surface font-label-sm text-[10px] px-2 py-0.5 rounded backdrop-blur-md">05:12</span>
@@ -287,7 +288,7 @@ export default function VideoGenerator() {
         {/* Processing State Terminal */}
         <div className="bg-inverse-surface rounded-xl p-5 md:p-6 card-shadow overflow-hidden relative border border-outline-variant/10 text-inverse-on-surface">
           <div className="flex items-center gap-2 mb-4 border-b border-outline/20 pb-3">
-            <span className="material-symbols-outlined text-secondary text-[18px]">terminal</span>
+            <MdTerminal className="text-secondary text-[18px]" />
             <span className="font-label-sm text-label-sm text-outline-variant uppercase tracking-wider">System Output</span>
           </div>
           
@@ -323,7 +324,7 @@ export default function VideoGenerator() {
         {/* Customization Panel */}
         <aside className="bg-surface-container-lowest border border-outline-variant/30 rounded-xl p-6 card-shadow">
           <div className="flex items-center gap-2 mb-stack-md border-b border-outline-variant/30 pb-4">
-            <span className="material-symbols-outlined text-primary text-[20px]">tune</span>
+            <MdTune className="text-primary text-[20px]" />
             <h3 className="font-headline-sm text-headline-sm text-primary">Studio Settings</h3>
           </div>
           
@@ -341,7 +342,7 @@ export default function VideoGenerator() {
                   <option>Dr. Marcus (Professional, Calm)</option>
                   <option>AI Assistant (Neutral, Clear)</option>
                 </select>
-                <span className="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-outline-variant pointer-events-none">expand_more</span>
+                <MdExpandMore className="absolute right-3 top-1/2 -translate-y-1/2 text-outline-variant pointer-events-none" />
               </div>
             </div>
 
@@ -396,7 +397,7 @@ export default function VideoGenerator() {
               </>
             ) : (
               <>
-                <span className="material-symbols-outlined text-[20px]">auto_awesome</span>
+                <MdAutoAwesome className="text-[20px]" />
                 Synthesize Voiceover
               </>
             )}

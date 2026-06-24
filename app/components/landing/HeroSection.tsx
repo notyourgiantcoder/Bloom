@@ -1,3 +1,4 @@
+import { MdPlayLesson } from "react-icons/md";
 export default function HeroSection() {
   return (
     <section className="relative pt-24 pb-32 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto overflow-hidden">
@@ -27,7 +28,7 @@ export default function HeroSection() {
           <div className="relative z-10 w-full max-w-md bg-surface-container-lowest border border-outline-variant rounded-xl p-6 ambient-shadow transform rotate-[-2deg] hover:rotate-0 transition-transform duration-700 ease-out">
             <div className="flex items-center gap-4 mb-6 border-b border-surface-variant pb-4">
               <div className="w-12 h-12 rounded-lg bg-surface-container flex items-center justify-center text-primary">
-                <span className="material-symbols-outlined filled">play_lesson</span>
+                <MdPlayLesson className="text-2xl" />
               </div>
               <div>
                 <h3 className="font-headline-sm text-headline-sm text-on-surface">Advanced Cardiology</h3>
