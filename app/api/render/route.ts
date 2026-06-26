@@ -23,10 +23,11 @@ async function pollRenderProgress(
       renderId,
       bucketName,
       functionName: REMOTION_FUNCTION_NAME,
+      region: AWS_REGION as any,
     });
 
-    if (progress.status === "completed") {
-      const outName = progress.out !== undefined ? progress.out : "out.mp4";
+    if (progress.done && !progress.fatalErrorEncountered) {
+      const outName = progress.outKey !== null ? progress.outKey : "out.mp4";
       const videoUrl = `https://${bucketName}.s3.${AWS_REGION}.amazonaws.com/${outName}`;
 
       const supabase = await getSupabaseServerClient();
@@ -41,9 +42,9 @@ async function pollRenderProgress(
       return;
     }
 
-    if (progress.status === "failed") {
+    if (progress.fatalErrorEncountered) {
       const errorLog =
-        progress.errors?.map((e) => e.stack || e.value).join("\n") ||
+        progress.errors?.map((e: any) => e.stack || e.message).join("\n") ||
         "Render failed";
 
       const supabase = await getSupabaseServerClient();
@@ -85,7 +86,7 @@ export async function POST(req: NextRequest) {
 
     const { renderId, bucketName } = await renderMediaOnLambda({
       functionName: REMOTION_FUNCTION_NAME,
-      region: AWS_REGION,
+      region: AWS_REGION as any,
       serveUrl: REMOTION_SERVE_URL,
       composition: "VideoComposition",
       inputProps: { manifest_url },

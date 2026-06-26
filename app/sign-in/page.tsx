@@ -42,7 +42,7 @@ export default function SignInPage() {
 
     try {
       const supabase = getSupabaseBrowserClient();
-      const { error: signInError } = await supabase.auth.signInWithPassword({
+      const { data, error: signInError } = await supabase.auth.signInWithPassword({
         email,
         password,
       });
@@ -50,6 +50,21 @@ export default function SignInPage() {
       if (signInError) {
         setError(signInError.message);
         return;
+      }
+
+      // Check onboarding status
+      if (data.user) {
+        const { data: profile } = await supabase
+          .from("profiles")
+          .select("onboarding_completed")
+          .eq("id", data.user.id)
+          .maybeSingle();
+
+        if (!profile || !profile.onboarding_completed) {
+          router.push("/onboarding");
+          router.refresh();
+          return;
+        }
       }
 
       router.push("/dashboard");

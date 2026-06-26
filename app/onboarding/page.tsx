@@ -1,23 +1,38 @@
 "use client";
-import { MdDraw, MdSchool, MdArrowForward, MdArrowBack, MdAddAPhoto } from "react-icons/md";
+import { MdDraw, MdSchool, MdArrowForward, MdArrowBack, MdAddAPhoto, MdCheck, MdClose } from "react-icons/md";
 
-import { useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { getSupabaseBrowserClient } from "@/lib/supabase/browser-client";
+import { checkUsernameAvailability } from "../dashboard/settings/actions";
+
+// Instagram-style: lowercase letters, numbers, underscores, periods
+const USERNAME_REGEX = /^[a-z0-9._]{3,30}$/;
+const USERNAME_CHAR_REGEX = /^[a-z0-9._]*$/;
+
+type FlowType = "email" | "oauth" | null;
 
 export default function OnboardingPage() {
   const [currentStep, setCurrentStep] = useState(1);
   const [selectedRole, setSelectedRole] = useState<string | null>(null);
   const [selectedTopics, setSelectedTopics] = useState<string[]>([]);
 
-  // Step 3 – credentials
+  // Step 3 – credentials (email flow only)
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [credError, setCredError] = useState<string | null>(null);
 
-  // Step 4 – profile
+  // Step – profile
   const [displayName, setDisplayName] = useState("");
+  const [username, setUsername] = useState("");
+  const [usernameStatus, setUsernameStatus] = useState<{
+    checking: boolean;
+    available: boolean | null;
+    error: string | null;
+  }>({ checking: false, available: null, error: null });
+  const usernameTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
   const [photoFile, setPhotoFile] = useState<File | null>(null);
   const [photoPreview, setPhotoPreview] = useState<string | null>(null);
   const photoInputRef = useRef<HTMLInputElement>(null);
@@ -26,8 +41,45 @@ export default function OnboardingPage() {
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
 
+  // Flow detection
+  const [flowType, setFlowType] = useState<FlowType>(null);
+  const [loading, setLoading] = useState(true);
+  const [authUserId, setAuthUserId] = useState<string | null>(null);
+
   const router = useRouter();
-  const TOTAL_STEPS = 4;
+
+  // Determine flow type: if user is already authenticated (Google OAuth), show shorter flow
+  useEffect(() => {
+    const detectFlow = async () => {
+      const supabase = getSupabaseBrowserClient();
+      const { data: { user } } = await supabase.auth.getUser();
+
+      if (user) {
+        setFlowType("oauth");
+        setAuthUserId(user.id);
+        // Pre-fill from Google metadata
+        const meta = user.user_metadata;
+        setDisplayName(
+          (meta?.full_name as string) ||
+          (meta?.name as string) ||
+          (user.email?.split("@")[0] ?? "")
+        );
+        if (meta?.avatar_url) {
+          setPhotoPreview(meta.avatar_url as string);
+        }
+      } else {
+        setFlowType("email");
+      }
+      setLoading(false);
+    };
+    detectFlow();
+  }, []);
+
+  // OAuth flow: Step 1 (Role) → Step 2 (Topics) → Step 3 (Profile) → Done
+  // Email flow: Step 1 (Role) → Step 2 (Topics) → Step 3 (Credentials) → Step 4 (Profile) → Done
+  const TOTAL_STEPS = flowType === "oauth" ? 3 : 4;
+  const PROFILE_STEP = flowType === "oauth" ? 3 : 4;
+  const CREDENTIALS_STEP = 3; // Only used in email flow
 
   const handleNextStep = (step: number) => setCurrentStep(step);
   const handlePrevStep = (step: number) => setCurrentStep(step);
@@ -45,7 +97,44 @@ export default function OnboardingPage() {
     setPhotoPreview(URL.createObjectURL(file));
   };
 
-  // Validate credentials step before proceeding
+  // Debounced username availability check
+  const checkAvailability = useCallback((value: string) => {
+    if (usernameTimerRef.current) {
+      clearTimeout(usernameTimerRef.current);
+    }
+
+    if (!value || value.length < 3) {
+      setUsernameStatus({ checking: false, available: null, error: value.length > 0 ? "Username must be at least 3 characters." : null });
+      return;
+    }
+
+    if (!USERNAME_REGEX.test(value)) {
+      setUsernameStatus({ checking: false, available: null, error: "Only lowercase letters, numbers, underscores, and periods allowed." });
+      return;
+    }
+
+    setUsernameStatus({ checking: true, available: null, error: null });
+
+    usernameTimerRef.current = setTimeout(async () => {
+      const result = await checkUsernameAvailability(value);
+      setUsernameStatus({
+        checking: false,
+        available: result.available,
+        error: result.error || (!result.available ? "This username is already taken." : null),
+      });
+    }, 500);
+  }, []);
+
+  const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const raw = e.target.value.toLowerCase();
+    // Only allow valid characters to be typed
+    if (raw && !USERNAME_CHAR_REGEX.test(raw)) return;
+    if (raw.length > 30) return;
+    setUsername(raw);
+    checkAvailability(raw);
+  };
+
+  // Validate credentials step before proceeding (email flow only)
   const handleCredentialsContinue = () => {
     setCredError(null);
     if (!email || !password || !confirmPassword) {
@@ -63,8 +152,69 @@ export default function OnboardingPage() {
     handleNextStep(4);
   };
 
-  // Final submit: sign up + update profile
-  const handleFinishSetup = async () => {
+  // Final submit for OAuth flow (user already authenticated)
+  const handleOAuthFinish = async () => {
+    setSubmitError(null);
+    setSubmitting(true);
+
+    try {
+      const supabase = getSupabaseBrowserClient();
+
+      // Upload avatar if a new file was selected
+      let avatarUrl: string | undefined;
+      if (photoFile && authUserId) {
+        const ext = photoFile.name.split(".").pop();
+        const filePath = `${authUserId}/avatar.${ext}`;
+        const { error: uploadError } = await supabase.storage
+          .from("avatars")
+          .upload(filePath, photoFile, { upsert: true });
+
+        if (!uploadError) {
+          const { data: publicUrlData } = supabase.storage
+            .from("avatars")
+            .getPublicUrl(filePath);
+          avatarUrl = publicUrlData.publicUrl;
+        }
+      }
+
+      // Upsert profile — creates the row if it doesn't exist yet
+      const { error: profileError } = await supabase
+        .from("profiles")
+        .upsert({
+          id: authUserId!,
+          full_name: displayName,
+          username: username.trim().toLowerCase(),
+          role: selectedRole,
+          onboarding_completed: true,
+          ...(avatarUrl ? { avatar_url: avatarUrl } : {}),
+        }, { onConflict: "id" });
+
+      if (profileError) {
+        setSubmitError(profileError.message);
+        setSubmitting(false);
+        return;
+      }
+
+      // Also update user metadata
+      await supabase.auth.updateUser({
+        data: {
+          full_name: displayName,
+          role: selectedRole,
+          interests: selectedTopics,
+          ...(avatarUrl ? { avatar_url: avatarUrl } : {}),
+        },
+      });
+
+      router.push("/dashboard");
+      router.refresh();
+    } catch {
+      setSubmitError("An unexpected error occurred. Please try again.");
+      setSubmitting(false);
+    }
+  };
+
+  // Final submit for Email flow (sign up + update profile)
+  const handleEmailFinish = async () => {
     setSubmitError(null);
     setSubmitting(true);
 
@@ -81,7 +231,7 @@ export default function OnboardingPage() {
         return;
       }
 
-      // 2. Upload avatar if provided (stored in `avatars` bucket)
+      // 2. Upload avatar if provided
       let avatarUrl: string | undefined;
       if (photoFile && signUpData.user) {
         const ext = photoFile.name.split(".").pop();
@@ -98,15 +248,29 @@ export default function OnboardingPage() {
         }
       }
 
-      // 3. Update user metadata with display name, role, topics & avatar
+      // 3. Update user metadata
       await supabase.auth.updateUser({
         data: {
-          display_name: displayName || email.split("@")[0],
+          full_name: displayName || email.split("@")[0],
           role: selectedRole,
           interests: selectedTopics,
           ...(avatarUrl ? { avatar_url: avatarUrl } : {}),
         },
       });
+
+      // 4. Upsert profile — creates the row if it doesn't exist yet
+      if (signUpData.user) {
+        await supabase
+          .from("profiles")
+          .upsert({
+            id: signUpData.user.id,
+            full_name: displayName || email.split("@")[0],
+            username: username.trim().toLowerCase(),
+            role: selectedRole,
+            onboarding_completed: true,
+            ...(avatarUrl ? { avatar_url: avatarUrl } : {}),
+          }, { onConflict: "id" });
+      }
 
       router.push("/dashboard");
       router.refresh();
@@ -115,6 +279,28 @@ export default function OnboardingPage() {
       setSubmitting(false);
     }
   };
+
+  const handleFinishSetup = () => {
+    if (flowType === "oauth") {
+      handleOAuthFinish();
+    } else {
+      handleEmailFinish();
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="bg-background text-on-background min-h-screen flex items-center justify-center">
+        <div className="flex flex-col items-center gap-4">
+          <svg className="w-8 h-8 animate-spin text-primary" fill="none" viewBox="0 0 24 24">
+            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z" />
+          </svg>
+          <p className="text-on-surface-variant font-body-md">Setting up your experience...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="bg-background text-on-background min-h-screen flex flex-col font-body-md text-body-md antialiased relative overflow-x-hidden">
@@ -131,10 +317,14 @@ export default function OnboardingPage() {
           {/* Header & Brand */}
           <div className="text-center mb-12">
             <h1 className="font-headline-sm text-headline-sm text-primary mb-2">Bloom</h1>
-            <p className="text-on-surface-variant">Let&apos;s get your space set up.</p>
+            <p className="text-on-surface-variant">
+              {flowType === "oauth"
+                ? "Welcome! Let\u0027s personalize your experience."
+                : "Let\u0027s get your space set up."}
+            </p>
           </div>
 
-          {/* Progress Indicator – 4 steps */}
+          {/* Progress Indicator */}
           <div className="flex justify-center items-center mb-12">
             <div className="flex items-center gap-2">
               {Array.from({ length: TOTAL_STEPS }, (_, i) => i + 1).map((step, idx) => (
@@ -251,8 +441,8 @@ export default function OnboardingPage() {
             </div>
           )}
 
-          {/* ── Step 3: Create Account (email + password) ── */}
-          {currentStep === 3 && (
+          {/* ── Step 3 (Email flow only): Create Account ── */}
+          {currentStep === CREDENTIALS_STEP && flowType === "email" && (
             <div className="animate-in fade-in slide-in-from-bottom-4 duration-300">
               <h2 className="font-headline-md text-headline-md text-center mb-2">Create your account</h2>
               <p className="text-center text-on-surface-variant mb-8">You&apos;ll use these to sign in to Bloom.</p>
@@ -331,8 +521,8 @@ export default function OnboardingPage() {
             </div>
           )}
 
-          {/* ── Step 4: Profile (Name + Photo) ── */}
-          {currentStep === 4 && (
+          {/* ── Profile Step (Final step for both flows) ── */}
+          {currentStep === PROFILE_STEP && (
             <div className="animate-in fade-in slide-in-from-bottom-4 duration-300">
               <h2 className="font-headline-md text-headline-md text-center mb-8">Set up your profile</h2>
 
@@ -387,16 +577,72 @@ export default function OnboardingPage() {
                     autoComplete="name"
                   />
                 </div>
+
+                {/* Username */}
+                <div>
+                  <label className="block font-label-md text-label-md text-on-surface mb-2" htmlFor="username">
+                    Choose a username
+                  </label>
+                  <div className="relative">
+                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant/50 font-body-md select-none">@</span>
+                    <input 
+                        className={`w-full bg-surface-container-lowest border rounded-lg pl-8 pr-10 py-3 font-body-md text-on-surface focus:outline-none focus:ring-2 transition-all placeholder:text-outline-variant ${
+                          usernameStatus.error 
+                            ? 'border-error/50 focus:ring-error focus:border-error' 
+                            : usernameStatus.available === true 
+                              ? 'border-[#2d5f5d]/50 focus:ring-[#2d5f5d] focus:border-[#2d5f5d]' 
+                              : 'border-outline-variant focus:ring-primary focus:border-primary'
+                        }`}
+                        id="username" 
+                        type="text" 
+                        placeholder="your_username"
+                        value={username}
+                        onChange={handleUsernameChange}
+                        autoComplete="off"
+                    />
+                    {/* Status indicator */}
+                    <div className="absolute right-3 top-1/2 -translate-y-1/2">
+                      {usernameStatus.checking && (
+                        <svg className="w-5 h-5 animate-spin text-on-surface-variant/50" fill="none" viewBox="0 0 24 24">
+                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z" />
+                        </svg>
+                      )}
+                      {!usernameStatus.checking && usernameStatus.available === true && (
+                        <MdCheck className="text-[20px] text-[#2d5f5d]" />
+                      )}
+                      {!usernameStatus.checking && usernameStatus.available === false && (
+                        <MdClose className="text-[20px] text-error" />
+                      )}
+                    </div>
+                  </div>
+                  {usernameStatus.error && (
+                    <p className="mt-1 text-[12px] text-error font-body-sm">{usernameStatus.error}</p>
+                  )}
+                  {!usernameStatus.error && usernameStatus.available === true && (
+                    <p className="mt-1 text-[12px] text-[#2d5f5d] font-body-sm">Username is available!</p>
+                  )}
+                  {!usernameStatus.error && !usernameStatus.checking && usernameStatus.available === null && !username && (
+                    <p className="mt-1 text-[12px] text-on-surface-variant/60 font-body-sm">Lowercase letters, numbers, underscores, and periods. 3–30 characters.</p>
+                  )}
+                  {!usernameStatus.error && !usernameStatus.checking && usernameStatus.available === null && username && username.length < 3 && (
+                    <p className="mt-1 text-[12px] text-on-surface-variant/60 font-body-sm">Username must be at least 3 characters.</p>
+                  )}
+                </div>
               </div>
 
               <div className="mt-12 flex justify-between items-center">
-                <button type="button" onClick={() => handlePrevStep(3)} className="text-on-surface-variant hover:text-on-surface flex items-center gap-2 transition-colors">
+                <button
+                  type="button"
+                  onClick={() => handlePrevStep(flowType === "oauth" ? 2 : 3)}
+                  className="text-on-surface-variant hover:text-on-surface flex items-center gap-2 transition-colors"
+                >
                   <MdArrowBack className="text-sm" /> Back
                 </button>
                 <button
                   className="bg-primary text-on-primary hover:bg-primary-container px-8 py-3 rounded-lg font-label-md text-label-md transition-colors flex items-center gap-2 focus:ring-2 focus:ring-primary focus:outline-none shadow-sm disabled:opacity-60 disabled:cursor-not-allowed"
                   onClick={handleFinishSetup}
-                  disabled={submitting || !displayName}
+                  disabled={submitting || !displayName || !username || usernameStatus.available !== true}
                 >
                   {submitting ? (
                     <>
@@ -404,7 +650,7 @@ export default function OnboardingPage() {
                         <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                         <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z" />
                       </svg>
-                      Creating account…
+                      {flowType === "oauth" ? "Saving..." : "Creating account…"}
                     </>
                   ) : (
                     <>

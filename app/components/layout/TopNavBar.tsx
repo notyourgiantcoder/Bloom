@@ -1,4 +1,8 @@
-import Link from 'next/link';
+"use client";
+
+import Link from "next/link";
+import { useEffect, useState } from "react";
+import { getSupabaseBrowserClient } from "@/lib/supabase/browser-client";
 
 export default function TopNavBar() {
   return (

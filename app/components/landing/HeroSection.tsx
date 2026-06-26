@@ -1,4 +1,5 @@
 import { MdPlayLesson } from "react-icons/md";
+import Link from "next/link";
 export default function HeroSection() {
   return (
     <section className="relative pt-24 pb-32 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto overflow-hidden">
@@ -12,9 +13,9 @@ export default function HeroSection() {
             The quiet, powerful workspace for professional educators. Build courses, harness AI, and host interactive medical simulations all in one tactile, beautifully simple platform.
           </p>
           <div className="flex flex-wrap items-center gap-4 pt-2">
-            <button className="rounded-lg bg-primary text-on-primary px-8 py-3.5 font-label-md text-label-md hover:bg-surface-tint transition-colors focus:ring-2 focus:ring-primary ambient-shadow">
-              Start building
-            </button>
+            <Link href="/sign-in" className="rounded-lg bg-primary text-on-primary px-8 py-3.5 font-label-md text-label-md hover:bg-surface-tint transition-colors focus:ring-2 focus:ring-primary ambient-shadow flex items-center justify-center">
+              Start for free
+            </Link>
             <button className="rounded-lg bg-transparent border border-outline-variant text-primary px-8 py-3.5 font-label-md text-label-md hover:bg-surface-container-low transition-colors">
               Explore platform
             </button>
