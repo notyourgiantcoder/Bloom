@@ -31,6 +31,22 @@ export type Module = {
   created_at: string
 }
 
+export type ModuleFile = {
+  id: string
+  module_id: string
+  course_id: string
+  name: string
+  file_url: string
+  file_type: 'pdf' | 'video' | 'image' | 'audio' | 'document' | 'other'
+  file_size: number
+  position: number
+  created_at: string
+}
+
+export type ModuleWithFiles = Module & {
+  files: ModuleFile[]
+}
+
 export type Lesson = {
   id: string
   module_id: string

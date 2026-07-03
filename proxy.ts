@@ -1,122 +1,62 @@
-import { createServerClient } from "@supabase/ssr";
-import { NextResponse, type NextRequest } from "next/server";
+import { createServerClient } from '@supabase/ssr'
+import { NextResponse, type NextRequest } from 'next/server'
 
-// Routes that don't require authentication
-const PUBLIC_ROUTES = [
-  "/",
-  "/pricing",
-  "/sign-in",
-  "/auth/callback",
-  "/api",
-];
-
-// Routes that start with these prefixes are public
-const PUBLIC_PREFIXES = ["/courses", "/api", "/creator"];
-
-// Routes that authenticated users should NOT see
-const AUTH_ONLY_ROUTES = ["/sign-in"];
-
-function isPublicRoute(pathname: string): boolean {
-  if (PUBLIC_ROUTES.includes(pathname)) return true;
-  return PUBLIC_PREFIXES.some((prefix) => pathname.startsWith(prefix));
-}
+const PROTECTED_ROUTES = ['/dashboard', '/course-builder','/courses', '/creator']
+const AUTH_ROUTES = ['/sign-in', '/sign-up', '/onboarding']
 
 export async function proxy(request: NextRequest) {
-  let supabaseResponse = NextResponse.next({
-    request,
-  });
+  const { pathname } = request.nextUrl
 
+  const isProtected = PROTECTED_ROUTES.some(r => pathname.startsWith(r))
+  const isAuthRoute = AUTH_ROUTES.some(r => pathname.startsWith(r))
+
+  if (!isProtected && !isAuthRoute) {
+    return NextResponse.next()
+  }
+
+  let response = NextResponse.next()
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     {
       cookies: {
-        getAll() {
-          return request.cookies.getAll();
-        },
-        setAll(cookiesToSet) {
+        getAll: () => request.cookies.getAll(),
+        setAll: (cookiesToSet) => {
           cookiesToSet.forEach(({ name, value, options }) =>
-            request.cookies.set(name, value)
-          );
-          supabaseResponse = NextResponse.next({
-            request,
-          });
-          cookiesToSet.forEach(({ name, value, options }) =>
-            supabaseResponse.cookies.set(name, value, options)
-          );
+            response.cookies.set(name, value, options)
+          )
         },
       },
     }
-  );
+  )
 
-  // IMPORTANT: Do NOT use getSession() — use getUser() for security
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const userResult = await Promise.race([
+    supabase.auth.getUser(),
+    new Promise<{ data: { user: null }; error: Error }>((resolve) =>
+      setTimeout(
+        () => resolve({ data: { user: null }, error: new Error('timeout') }),
+        5000
+      )
+    ),
+  ])
 
-  const pathname = request.nextUrl.pathname;
+  const user = userResult.data.user
 
-  // If user is authenticated
-  if (user) {
-    // Fetch profile once using maybeSingle() to handle missing rows gracefully
-    const { data: profile } = await supabase
-      .from("profiles")
-      .select("onboarding_completed")
-      .eq("id", user.id)
-      .maybeSingle();
-
-    const onboardingDone = profile?.onboarding_completed === true;
-
-    // Redirect away from sign-in page
-    if (AUTH_ONLY_ROUTES.includes(pathname)) {
-      const url = request.nextUrl.clone();
-      // If onboarding not done, go to onboarding instead of dashboard
-      url.pathname = onboardingDone ? "/dashboard" : "/onboarding";
-      return NextResponse.redirect(url);
-    }
-
-    // Check onboarding status for protected routes (not onboarding itself)
-    if (
-      pathname.startsWith("/dashboard") ||
-      pathname.startsWith("/course-builder")
-    ) {
-      if (!onboardingDone) {
-        const url = request.nextUrl.clone();
-        url.pathname = "/onboarding";
-        return NextResponse.redirect(url);
-      }
-    }
-
-    // If user is on onboarding but already completed it, redirect to dashboard
-    if (pathname === "/onboarding") {
-      if (onboardingDone) {
-        const url = request.nextUrl.clone();
-        url.pathname = "/dashboard";
-        return NextResponse.redirect(url);
-      }
-    }
-  } else {
-    // User is NOT authenticated — onboarding requires auth too
-    if (!isPublicRoute(pathname)) {
-      const url = request.nextUrl.clone();
-      url.pathname = "/sign-in";
-      url.searchParams.set("next", pathname);
-      return NextResponse.redirect(url);
-    }
+  if (isProtected && !user) {
+    const redirectUrl = new URL('/sign-in', request.url)
+    redirectUrl.searchParams.set('next', pathname)
+    return NextResponse.redirect(redirectUrl)
   }
 
-  return supabaseResponse;
+  if (isAuthRoute && user) {
+    return NextResponse.redirect(new URL('/dashboard', request.url))
+  }
+
+  return response
 }
 
 export const config = {
   matcher: [
-    /*
-     * Match all request paths except:
-     * - _next/static (static files)
-     * - _next/image (image optimization files)
-     * - favicon.ico (favicon file)
-     * - public files (images, etc.)
-     */
-    "/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
+    '/((?!_next/static|_next/image|favicon.ico|api/).*)',
   ],
-};
+}

@@ -81,6 +81,7 @@ export default function EmailPasswordDemo({ user }: EmailPasswordDemoProps) {
                     <form
                         className="relative overflow-hidden rounded-[32px] border border-emerald-500/30 bg-gradient-to-br from-[#05130d] via-[#04100c] to-[#0c2a21] p-8 text-slate-100 shadow-[0_35px_90px_rgba(2,6,23,0.65)]"
                         onSubmit={handleSubmit}
+                        method="POST"
                     >
                         <div
                             className="pointer-events-none absolute -left-4 -top-4 -z-10 h-20 w-28 rounded-full bg-[radial-gradient(circle,_rgba(16,185,129,0.25),_transparent)] blur-lg"

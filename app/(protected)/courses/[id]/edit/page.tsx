@@ -1,6 +1,6 @@
 import { requireAuth } from "@/lib/supabase/auth-helpers"
 import { getSupabaseServerClient } from "@/lib/supabase/server-client"
-import { Course, RenderJob } from "@/types/database"
+import { Course, ModuleWithFiles } from "@/types/database"
 import { BuilderClient } from "./BuilderClient"
 import { notFound } from "next/navigation"
 
@@ -19,14 +19,6 @@ export default async function CourseBuilderPage({ params }: { params: Promise<{ 
     notFound()
   }
 
-  const { data: job } = await supabase
-    .from('render_jobs')
-    .select('*')
-    .eq('course_id', id)
-    .order('created_at', { ascending: false })
-    .limit(1)
-    .single()
-
   const { data: initialModules } = await supabase
     .from('modules')
     .select('*')
@@ -36,8 +28,7 @@ export default async function CourseBuilderPage({ params }: { params: Promise<{ 
   return (
     <BuilderClient
       initialCourse={course as Course}
-      initialJob={(job as RenderJob) || null}
-      initialModules={initialModules || []}
+      initialModules={(initialModules || []).map((m): ModuleWithFiles => ({ ...m, files: [] }))}
     />
   )
 }

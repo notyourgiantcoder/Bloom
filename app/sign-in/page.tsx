@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { getSupabaseBrowserClient } from "@/lib/supabase/browser-client";
+import { signInAction } from "./actions";
 
 export default function SignInPage() {
   const pulseRef = useRef<HTMLDivElement>(null);
@@ -35,46 +36,7 @@ export default function SignInPage() {
     return () => document.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
-  const handleEmailSignIn = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setError(null);
-    setLoading(true);
 
-    try {
-      const supabase = getSupabaseBrowserClient();
-      const { data, error: signInError } = await supabase.auth.signInWithPassword({
-        email,
-        password,
-      });
-
-      if (signInError) {
-        setError(signInError.message);
-        return;
-      }
-
-      // Check onboarding status
-      if (data.user) {
-        const { data: profile } = await supabase
-          .from("profiles")
-          .select("onboarding_completed")
-          .eq("id", data.user.id)
-          .maybeSingle();
-
-        if (!profile || !profile.onboarding_completed) {
-          router.push("/onboarding");
-          router.refresh();
-          return;
-        }
-      }
-
-      router.push("/dashboard");
-      router.refresh();
-    } catch {
-      setError("An unexpected error occurred. Please try again.");
-    } finally {
-      setLoading(false);
-    }
-  };
 
   const handleGoogleSignIn = async () => {
     setError(null);
@@ -163,7 +125,7 @@ export default function SignInPage() {
           </div>
 
           {/* Email / Password Form */}
-          <form className="flex flex-col gap-stack-md" onSubmit={handleEmailSignIn}>
+          <form className="flex flex-col gap-stack-md" action={signInAction}>
             <div className="flex flex-col gap-2">
               <label className="font-label-sm text-label-sm text-on-surface-variant" htmlFor="email">
                 Email

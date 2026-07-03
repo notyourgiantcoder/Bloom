@@ -9,9 +9,8 @@ import {
   MdAddPhotoAlternate, MdCode, MdUpload, MdDeleteForever,
   MdClose, MdArrowBack
 } from 'react-icons/md'
-import { Course, RenderJob, Module } from '@/types/database'
+import { Course, Module, ModuleWithFiles } from '@/types/database'
 import { useAutosave } from '@/hooks/useAutosave'
-import { useRealtimeJob } from '@/hooks/useRealtimeJob'
 import { getSupabaseBrowserClient } from '@/lib/supabase/browser-client'
 import { ModuleManager } from '@/components/ModuleManager'
 
@@ -20,7 +19,7 @@ export function BuilderClient({
   initialModules
 }: { 
   initialCourse: Course
-  initialModules: Module[]
+  initialModules: ModuleWithFiles[]
 }) {
   const router = useRouter()
   const supabase = getSupabaseBrowserClient()
@@ -86,8 +85,8 @@ export function BuilderClient({
 
       setPdfUploadProgress(100)
       setPdfUrl(signedData.signedUrl)
-    } catch (err: any) {
-      alert(`Failed to upload PDF: ${err.message}`)
+    } catch (err) {
+      alert(`Failed to upload PDF: ${(err as Error).message}`)
     } finally {
       setIsUploadingPdf(false)
       setPdfUploadProgress(0)
@@ -139,7 +138,7 @@ export function BuilderClient({
       if (updateError) throw updateError
       
       setVideoUrl(newVideoUrl)
-    } catch (err: any) {
+    } catch {
       setVideoUploadError("Upload failed. Try again.")
     } finally {
       setIsUploadingVideo(false)
@@ -155,7 +154,7 @@ export function BuilderClient({
         .eq('id', initialCourse.id)
       if (error) throw error
       setVideoUrl(null)
-    } catch (err: any) {
+    } catch {
       alert("Failed to remove video")
     }
   }
@@ -195,8 +194,8 @@ export function BuilderClient({
       if (updateError) throw updateError
       
       setCoverUrl(newCoverUrl)
-    } catch (err: any) {
-      alert(`Failed to upload cover: ${err.message}`)
+    } catch (err) {
+      alert(`Failed to upload cover: ${(err as Error).message}`)
     } finally {
       setIsUploadingCover(false)
     }
@@ -210,7 +209,7 @@ export function BuilderClient({
         .eq('id', initialCourse.id)
       if (error) throw error
       setCoverUrl(null)
-    } catch (err: any) {
+    } catch {
       alert("Failed to remove cover")
     }
   }
@@ -380,6 +379,7 @@ export function BuilderClient({
           <div className="flex-1 min-h-0 overflow-hidden">
             <ModuleManager 
               courseId={initialCourse.id} 
+              userId={initialCourse.user_id}
               initialModules={initialModules}
               onSaveIndicatorChange={setSaveStatus}
             />
