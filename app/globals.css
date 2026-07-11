@@ -60,14 +60,14 @@
   --spacing-stack-lg: 32px;
   --spacing-gutter: 24px;
   
-  --font-body-md: "Inter", sans-serif;
-  --font-body-lg: "Inter", sans-serif;
-  --font-label-md: "JetBrains Mono", monospace;
-  --font-label-sm: "JetBrains Mono", monospace;
-  --font-headline-md: "Fraunces", serif;
-  --font-headline-sm: "Fraunces", serif;
-  --font-display-lg: "Fraunces", serif;
-  --font-display-lg-mobile: "Fraunces", serif;
+  --font-body-md: var(--font-nunito), "Nunito", sans-serif;
+  --font-body-lg: var(--font-nunito), "Nunito", sans-serif;
+  --font-label-md: var(--font-nunito), "Nunito", sans-serif;
+  --font-label-sm: var(--font-nunito), "Nunito", sans-serif;
+  --font-headline-md: var(--font-nunito), "Nunito", sans-serif;
+  --font-headline-sm: var(--font-nunito), "Nunito", sans-serif;
+  --font-display-lg: var(--font-nunito), "Nunito", sans-serif;
+  --font-display-lg-mobile: var(--font-nunito), "Nunito", sans-serif;
 }
 
 @utility text-label-sm {
@@ -177,4 +177,5 @@
 body {
     background-color: var(--color-surface-container-lowest);
     color: var(--color-on-surface);
+    font-family: var(--font-nunito), "Nunito", sans-serif;
 }

@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { getSupabaseBrowserClient } from "@/lib/supabase/browser-client";
 import { signInAction } from "./actions";
+import { LogoMark } from "../components/ui/LogoMark";
 
 export default function SignInPage() {
   const pulseRef = useRef<HTMLDivElement>(null);
@@ -74,7 +75,8 @@ export default function SignInPage() {
         ></div>
         <div className="w-full max-w-[440px] mx-auto z-10 relative">
           {/* Mobile Logo (visible only on mobile) */}
-          <div className="lg:hidden mb-stack-lg text-center">
+          <div className="lg:hidden mb-stack-lg flex justify-center items-center gap-2">
+            <LogoMark className="text-[1.2em] text-primary" />
             <span className="font-headline-sm text-headline-sm font-bold text-primary">Bloom</span>
           </div>
           <div className="text-center mb-stack-lg">
@@ -193,7 +195,8 @@ export default function SignInPage() {
       {/* Right Section (45%) */}
       <section className="hidden lg:flex w-[45%] bg-primary-container relative flex-col justify-between p-margin-desktop overflow-hidden bg-[url('data:image/svg+xml,%3Csvg%20width=%2240%22%20height=%2240%22%20viewBox=%220%200%2040%2040%22%20xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cpath%20d=%22M20%200c0%2011.046-8.954%2020-20%2020%2011.046%200%2020%208.954%2020%2020%200-11.046%208.954-20%2020-20-11.046%200-20-8.954-20-20z%22%20fill=%22%23ffffff%22%20fill-opacity=%220.03%22%20fill-rule=%22evenodd%22/%3E%3C/svg%3E')]">
         {/* Branding */}
-        <div className="z-10 relative">
+        <div className="z-10 relative flex items-center gap-3">
+          <LogoMark className="text-[1.5em] text-white" />
           <span className="font-headline-md text-headline-md font-bold text-on-primary">Bloom</span>
         </div>
         {/* Quote */}

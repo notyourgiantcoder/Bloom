@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, forwardRef, useImperativeHandle } from 'react'
 import { getSupabaseBrowserClient } from '@/lib/supabase/browser-client'
 import { Module, ModuleFile, ModuleWithFiles } from '@/types/database'
 import {
@@ -82,7 +82,8 @@ type DragData =
 // MAIN COMPONENT
 // ============================================
 
-export function ModuleManager({ courseId, userId, initialModules, onSaveIndicatorChange }: ModuleManagerProps) {
+export const ModuleManager = forwardRef<{ addExternalFile: (file: ModuleFile) => void }, ModuleManagerProps>(
+function ModuleManager({ courseId, userId, initialModules, onSaveIndicatorChange }, ref) {
   const [modules, setModules] = useState<ModuleWithFiles[]>(initialModules || [])
   const [expandedIds, setExpandedIds] = useState<Set<string>>(new Set(initialModules?.map(m => m.id) ?? []))
   const [uploadStates, setUploadStates] = useState<FileUploadState[]>([])
@@ -95,6 +96,19 @@ export function ModuleManager({ courseId, userId, initialModules, onSaveIndicato
   const dragStartModulesRef = useRef<ModuleWithFiles[]>([])
 
   const supabase = getSupabaseBrowserClient()
+
+  // Expose method for BuilderClient to inject files directly into state
+  useImperativeHandle(ref, () => ({
+    addExternalFile: (file: ModuleFile) => {
+      setModules(prev => prev.map(m => {
+        if (m.id !== file.module_id) return m
+        if (m.files.find(f => f.id === file.id)) return m
+        return { ...m, files: [...m.files, file].sort((a, b) => a.position - b.position) }
+      }))
+      // Auto-expand the module that received the file
+      setExpandedIds(prev => new Set(prev).add(file.module_id))
+    }
+  }))
 
   useEffect(() => {
     setModules(initialModules || [])
@@ -148,10 +162,11 @@ export function ModuleManager({ courseId, userId, initialModules, onSaveIndicato
               : m)
           })
         } else if (payload.eventType === 'DELETE') {
-          const delFile = payload.old as ModuleFile
-          setModules(prev => prev.map(m => m.id === delFile.module_id
-            ? { ...m, files: m.files.filter(f => f.id !== delFile.id) }
-            : m))
+          const delId = payload.old.id
+          setModules(prev => prev.map(m => ({
+            ...m,
+            files: m.files.filter(f => f.id !== delId)
+          })))
         }
       })
       .subscribe()
@@ -189,10 +204,19 @@ export function ModuleManager({ courseId, userId, initialModules, onSaveIndicato
     setAddingModule(false)
 
     if (error || !data) {
+      console.error("Failed to add module to database:", error);
+      alert(`Database error adding module: ${error?.message || 'Unknown error'}`);
       setModules(prev => prev.filter(m => m.id !== tempId))
       return
     }
-    setModules(prev => prev.map(m => m.id === tempId ? { ...(data as Module), files: [] } : m))
+    setModules(prev => {
+      // If Realtime already inserted this module, just drop the temp entry
+      if (prev.find(m => m.id === data.id)) {
+        return prev.filter(m => m.id !== tempId)
+      }
+      // Otherwise swap the temp entry for the real one
+      return prev.map(m => m.id === tempId ? { ...(data as Module), files: [] } : m)
+    })
     setExpandedIds(prev => new Set(prev).add(data.id))
   }
 
@@ -233,7 +257,7 @@ export function ModuleManager({ courseId, userId, initialModules, onSaveIndicato
           : u))
       }, 200)
 
-      const path = `${courseId}/${moduleId}/${crypto.randomUUID()}-${file.name}`
+      const path = `${userId}/${courseId}/${moduleId}/${crypto.randomUUID()}-${file.name}`
       const { error: uploadError } = await supabase.storage.from(STORAGE_BUCKET).upload(path, file)
       clearInterval(progressTimer)
 
@@ -298,9 +322,14 @@ export function ModuleManager({ courseId, userId, initialModules, onSaveIndicato
     list.find(m => m.files.some(f => f.id === id))
 
   const persistModulePositions = async (ordered: ModuleWithFiles[]) => {
-    await Promise.all(ordered.map((m, index) =>
+    const results = await Promise.all(ordered.map((m, index) =>
       supabase.from('modules').update({ position: index }).eq('id', m.id)
     ))
+    const error = results.find(r => r.error)?.error
+    if (error) {
+      console.error("Failed to persist module positions:", error)
+      alert(`Database error reordering modules: ${error.message}`)
+    }
   }
 
   const persistFilePositions = async (moduleId: string, ordered: ModuleFile[], moduleChanged: boolean) => {
@@ -424,9 +453,23 @@ export function ModuleManager({ courseId, userId, initialModules, onSaveIndicato
     ? modules.find(m => m.id === activeId) ?? null
     : null
 
+  // Prevent hydration mismatch: @dnd-kit generates random IDs on the server
+  // that don't match the client, causing React to silently discard the tree.
+  const [mounted, setMounted] = useState(false)
+  useEffect(() => { setMounted(true) }, [])
+
+  if (!mounted) {
+    return (
+      <div className="flex flex-col gap-3 h-full overflow-y-auto p-4">
+        <p className="text-sm text-gray-400">Loading modules…</p>
+      </div>
+    )
+  }
+
   return (
-    <div className="flex flex-col gap-3">
+    <div className="flex flex-col gap-3 h-full overflow-y-auto p-4">
       <DndContext
+        id="course-builder-dnd"
         sensors={sensors}
         collisionDetection={closestCenter}
         onDragStart={handleDragStart}
@@ -450,6 +493,21 @@ export function ModuleManager({ courseId, userId, initialModules, onSaveIndicato
             />
           ))}
         </SortableContext>
+
+        <DragOverlay>
+          {activeFile && (
+            <div className="flex items-center gap-2 rounded-md border border-blue-300 bg-white px-2 py-1.5 shadow-lg">
+              <FileIcon type={activeFile.file_type} />
+              <span className="text-sm text-gray-700">{activeFile.name}</span>
+            </div>
+          )}
+          {activeModule && (
+            <div className="flex items-center gap-2 rounded-lg border border-blue-300 bg-white px-3 py-2 shadow-lg">
+              <MdFolder className="text-lg text-amber-500" />
+              <span className="text-sm font-medium">{activeModule.title}</span>
+            </div>
+          )}
+        </DragOverlay>
       </DndContext>
 
       <button
@@ -460,24 +518,9 @@ export function ModuleManager({ courseId, userId, initialModules, onSaveIndicato
         <MdAdd className="text-lg" />
         {addingModule ? 'Adding module…' : 'Add module'}
       </button>
-
-      <DragOverlay>
-        {activeFile && (
-          <div className="flex items-center gap-2 rounded-md border border-blue-300 bg-white px-2 py-1.5 shadow-lg">
-            <FileIcon type={activeFile.file_type} />
-            <span className="text-sm text-gray-700">{activeFile.name}</span>
-          </div>
-        )}
-        {activeModule && (
-          <div className="flex items-center gap-2 rounded-lg border border-blue-300 bg-white px-3 py-2 shadow-lg">
-            <MdFolder className="text-lg text-amber-500" />
-            <span className="text-sm font-medium">{activeModule.title}</span>
-          </div>
-        )}
-      </DragOverlay>
     </div>
   )
-}
+})
 
 // ============================================
 // MODULE ITEM COMPONENT (Sortable + Droppable)
@@ -569,10 +612,10 @@ function ModuleItem({
 
       {isExpanded && (
         <div className="border-t border-gray-100 px-3 py-2">
-          <SortableContext items={module.files.map(f => f.id)} strategy={verticalListSortingStrategy}>
-            {module.files.length > 0 ? (
+          <SortableContext items={module.files.filter(f => ['pdf', 'video'].includes(f.file_type)).map(f => f.id)} strategy={verticalListSortingStrategy}>
+            {module.files.filter(f => ['pdf', 'video'].includes(f.file_type)).length > 0 ? (
               <div className="flex flex-col gap-1">
-                {module.files.map(file => (
+                {module.files.filter(f => ['pdf', 'video'].includes(f.file_type)).map(file => (
                   <FileItem
                     key={file.id}
                     file={file}

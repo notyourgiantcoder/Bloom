@@ -5,6 +5,7 @@ import { useState } from "react";
 import Link from "next/link";
 import TopNavBar from "../components/layout/TopNavBar";
 import Footer from "../components/layout/Footer";
+import PricingSection from "../components/landing/PricingSection";
 
 export default function PricingPage() {
   const [billingPeriod, setBillingPeriod] = useState<"monthly" | "yearly">("monthly");
@@ -37,154 +38,8 @@ export default function PricingPage() {
       {/* Main Container */}
       <main className="flex-grow w-full max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-stack-lg z-10 relative">
         
-        {/* Header Section */}
-        <div className="text-center mb-16 max-w-3xl mx-auto">
-          <h1 className="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg text-on-surface tracking-tight mb-stack-md">
-            Invest in your creative journey.
-          </h1>
-          <p className="font-body-lg text-body-lg text-on-surface-variant mb-stack-lg">
-            Choose a plan that fits your growth. Cancel anytime. No hidden fees.
-          </p>
-          
-          {/* Toggle Monthly / Yearly */}
-          <div className="flex items-center justify-center gap-4">
-            <span className={`font-label-md text-label-md transition-colors ${billingPeriod === "monthly" ? "text-on-surface font-bold" : "text-on-surface-variant"}`}>
-              Monthly
-            </span>
-            <button 
-              onClick={() => setBillingPeriod(billingPeriod === "monthly" ? "yearly" : "monthly")}
-              className="relative inline-flex h-6 w-11 items-center rounded-full bg-surface-variant transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
-              role="switch"
-              aria-checked={billingPeriod === "yearly"}
-            >
-              <span className="sr-only">Toggle billing period</span>
-              <span className={`inline-block h-4 w-4 transform rounded-full bg-primary transition-transform ${billingPeriod === "yearly" ? "translate-x-6" : "translate-x-1"}`}></span>
-            </button>
-            <div className="flex items-center gap-2">
-              <span className={`font-label-md text-label-md transition-colors ${billingPeriod === "yearly" ? "text-on-surface font-bold" : "text-on-surface-variant"}`}>
-                Yearly
-              </span>
-              <span className="bg-secondary/15 text-secondary font-label-sm text-[11px] px-2 py-0.5 rounded-full border border-secondary/20 font-semibold">
-                Save 20%
-              </span>
-            </div>
-          </div>
-        </div>
-
-        {/* Pricing Cards (Bento/Asymmetric Layout) */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-gutter items-stretch mb-24 max-w-5xl mx-auto">
-          
-          {/* Free Plan */}
-          <div className="bg-surface-variant/30 rounded-xl border border-outline-variant p-8 flex flex-col relative overflow-hidden transition-transform hover:-translate-y-1 duration-300 shadow-sm card-shadow">
-            <div className="mb-stack-lg">
-              <h3 className="font-headline-sm text-headline-sm text-on-surface mb-2">Free</h3>
-              <p className="font-body-md text-sm text-on-surface-variant mb-6">Essential tools to start building your audience.</p>
-              <div className="flex items-baseline gap-1">
-                <span className="font-display-lg text-display-lg text-primary">₹{currentPrices.free}</span>
-                <span className="font-body-md text-sm text-on-surface-variant">/mo</span>
-              </div>
-            </div>
-            
-            <ul className="space-y-4 mb-stack-lg flex-grow">
-              <li className="flex items-start gap-3">
-                <MdCheckCircle className="text-secondary text-[20px]" />
-                <span className="font-body-md text-sm text-on-surface">Up to 3 active projects</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <MdCheckCircle className="text-secondary text-[20px]" />
-                <span className="font-body-md text-sm text-on-surface">Basic analytics dashboard</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <MdCheckCircle className="text-secondary text-[20px]" />
-                <span className="font-body-md text-sm text-on-surface">Community support access</span>
-              </li>
-            </ul>
-            
-            <Link href="/sign-in" className="w-full bg-transparent border border-outline text-primary font-label-md text-label-sm py-3 rounded-lg hover:bg-surface-variant transition-colors mt-auto text-center block font-semibold">
-              Get Started
-            </Link>
-          </div>
-
-          {/* Creator Pro Plan */}
-          <div className="bg-surface-container-lowest rounded-xl border-2 border-primary shadow-md p-8 flex flex-col relative overflow-hidden transform md:-translate-y-4 transition-transform hover:-translate-y-5 duration-300 z-10 card-shadow">
-            <div className="absolute top-0 right-0 bg-primary text-on-primary font-label-sm text-[10px] px-3 py-1 rounded-bl-lg uppercase tracking-wider font-semibold">
-              Most Popular
-            </div>
-            <div className="mb-stack-lg">
-              <h3 className="font-headline-sm text-headline-sm text-primary mb-2">Creator Pro</h3>
-              <p className="font-body-md text-sm text-on-surface-variant mb-6">Advanced features for growing creators.</p>
-              <div className="flex items-baseline gap-1">
-                <span className="font-display-lg text-display-lg text-primary">₹{currentPrices.pro}</span>
-                <span className="font-body-md text-sm text-on-surface-variant">/mo</span>
-              </div>
-              <p className="font-label-sm text-[11px] text-outline mt-1 font-mono">
-                {billingPeriod === "yearly" ? `Billed annually (₹${currentPrices.pro * 12}/yr)` : "Billed monthly"}
-              </p>
-            </div>
-            
-            <ul className="space-y-4 mb-stack-lg flex-grow">
-              <li className="flex items-start gap-3">
-                <MdCheckCircle className="text-primary text-[20px]" />
-                <span className="font-body-md text-sm text-on-surface font-medium">Unlimited projects</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <MdCheckCircle className="text-primary text-[20px]" />
-                <span className="font-body-md text-sm text-on-surface">Advanced audience analytics</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <MdCheckCircle className="text-primary text-[20px]" />
-                <span className="font-body-md text-sm text-on-surface">Custom domain integration</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <MdCheckCircle className="text-primary text-[20px]" />
-                <span className="font-body-md text-sm text-on-surface">Priority email support</span>
-              </li>
-            </ul>
-            
-            <Link href="/sign-in" className="w-full bg-primary text-on-primary font-label-md text-label-sm py-3 rounded-lg hover:bg-primary-container transition-colors mt-auto text-center block font-semibold shadow-sm">
-              Upgrade to Pro
-            </Link>
-          </div>
-
-          {/* MediLab Pro Plan */}
-          <div className="bg-tertiary-fixed/30 rounded-xl border border-tertiary/20 p-8 flex flex-col relative overflow-hidden transition-transform hover:-translate-y-1 duration-300 shadow-sm card-shadow">
-            <div className="mb-stack-lg">
-              <h3 className="font-headline-sm text-headline-sm text-tertiary-container mb-2">MediLab Pro</h3>
-              <p className="font-body-md text-sm text-on-surface-variant mb-6">Full suite for serious medical educators.</p>
-              <div className="flex items-baseline gap-1">
-                <span className="font-display-lg text-display-lg text-primary">₹{currentPrices.medilab}</span>
-                <span className="font-body-md text-sm text-on-surface-variant">/mo</span>
-              </div>
-              <p className="font-label-sm text-[11px] text-outline mt-1 font-mono">
-                {billingPeriod === "yearly" ? `Billed annually (₹${currentPrices.medilab * 12}/yr)` : "Billed monthly"}
-              </p>
-            </div>
-            
-            <ul className="space-y-4 mb-stack-lg flex-grow">
-              <li className="flex items-start gap-3">
-                <MdCheckCircle className="text-tertiary-container text-[20px]" />
-                <span className="font-body-md text-sm text-on-surface font-medium">Everything in Creator Pro</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <MdCheckCircle className="text-tertiary-container text-[20px]" />
-                <span className="font-body-md text-sm text-on-surface">Full AI Studio Access</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <MdCheckCircle className="text-tertiary-container text-[20px]" />
-                <span className="font-body-md text-sm text-on-surface">White-labeled courses</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <MdCheckCircle className="text-tertiary-container text-[20px]" />
-                <span className="font-body-md text-sm text-on-surface">Dedicated success manager</span>
-              </li>
-            </ul>
-            
-            <Link href="/sign-in" className="w-full bg-tertiary-container text-on-primary font-label-md text-label-sm py-3 rounded-lg hover:bg-tertiary opacity-90 transition-opacity mt-auto text-center block font-semibold shadow-sm">
-              Contact Sales
-            </Link>
-          </div>
-
-        </div>
+        {/* Replaced with PricingSection */}
+        <PricingSection />
 
         {/* Feature Comparison Table */}
         <div className="mb-24 overflow-x-auto max-w-5xl mx-auto">

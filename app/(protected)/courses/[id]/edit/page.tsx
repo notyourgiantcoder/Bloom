@@ -25,10 +25,22 @@ export default async function CourseBuilderPage({ params }: { params: Promise<{ 
     .eq('course_id', id)
     .order('position', { ascending: true })
 
+  const { data: moduleFiles } = await supabase
+    .from('module_files')
+    .select('*')
+    .eq('course_id', id)
+    .in('file_type', ['pdf', 'video'])
+    .order('position', { ascending: true })
+
+  const modulesWithFiles = (initialModules || []).map((m): ModuleWithFiles => ({
+    ...m,
+    files: (moduleFiles || []).filter(f => f.module_id === m.id)
+  }))
+
   return (
     <BuilderClient
       initialCourse={course as Course}
-      initialModules={(initialModules || []).map((m): ModuleWithFiles => ({ ...m, files: [] }))}
+      initialModules={modulesWithFiles}
     />
   )
 }

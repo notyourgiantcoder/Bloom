@@ -5,6 +5,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { getSupabaseBrowserClient } from "@/lib/supabase/browser-client";
 import { checkUsernameAvailability } from "../dashboard/settings/actions";
+import { LogoMark } from "../components/ui/LogoMark";
 
 // Instagram-style: lowercase letters, numbers, underscores, periods
 const USERNAME_REGEX = /^[a-z0-9._]{3,30}$/;
@@ -315,8 +316,13 @@ export default function OnboardingPage() {
         <div className="w-full max-w-2xl bg-surface-container-lowest rounded-xl shadow-[0_1px_4px_rgba(26,46,46,0.06)] border border-outline-variant/30 p-8 md:p-12">
 
           {/* Header & Brand */}
-          <div className="text-center mb-12">
-            <h1 className="font-headline-sm text-headline-sm text-primary mb-2">Bloom</h1>
+          <div className="text-center mb-12 flex flex-col items-center">
+            <div className="flex items-center justify-center gap-3 mb-2">
+              <div className="bg-primary text-white p-2 rounded-xl flex items-center justify-center">
+                <LogoMark className="text-[1.2em]" />
+              </div>
+              <h1 className="font-headline-sm text-headline-sm text-primary">Bloom</h1>
+            </div>
             <p className="text-on-surface-variant">
               {flowType === "oauth"
                 ? "Welcome! Let\u0027s personalize your experience."

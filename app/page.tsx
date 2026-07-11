@@ -4,20 +4,23 @@ import HeroSection from './components/landing/HeroSection';
 import FeaturesStrip from './components/landing/FeaturesStrip';
 import AIFeatureSpotlight from './components/landing/AIFeatureSpotlight';
 import MediLabSpotlight from './components/landing/MediLabSpotlight';
-import PricingTeaser from './components/landing/PricingTeaser';
+import PricingSection from './components/landing/PricingSection';
+import MarqueeSection from './components/landing/MarqueeSection';
+import './components/landing/landing.css';
 
 export default function Home() {
   return (
-    <>
+    <div className="landing-page">
       <TopNavBar />
       <main>
         <HeroSection />
         <FeaturesStrip />
         <AIFeatureSpotlight />
         <MediLabSpotlight />
-        <PricingTeaser />
+        <PricingSection />
+        <MarqueeSection />
       </main>
       <Footer />
-    </>
+    </div>
   );
 }

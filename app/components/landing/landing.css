@@ -1,0 +1,593 @@
+/* =====================================================
+   Landing Page Styles — Webflow-inspired layout
+   Uses existing Bloom design-token CSS variables
+   ===================================================== */
+
+/* ===== Scope ===== */
+.landing-page {
+  font-family: var(--font-nunito), 'Nunito', sans-serif;
+  color: var(--color-on-surface);
+  line-height: 1.4;
+  overflow-x: hidden;
+}
+
+/* ===== Typography Scale ===== */
+.landing-page h1 {
+  font-family: var(--font-nunito), 'Nunito', sans-serif;
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  line-height: 1.05;
+  font-weight: 700;
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+.landing-page h2 {
+  font-family: var(--font-nunito), 'Nunito', sans-serif;
+  font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+  line-height: 1.1;
+  font-weight: 600;
+  margin: 0;
+}
+
+.landing-page h3 {
+  font-family: var(--font-nunito), 'Nunito', sans-serif;
+  font-size: clamp(1.2rem, 2vw, 1.5rem);
+  line-height: 1.15;
+  font-weight: 600;
+  margin: 0;
+}
+
+.landing-page h5 {
+  font-family: var(--font-nunito), 'Nunito', sans-serif;
+  color: var(--color-primary);
+  font-size: 0.9rem;
+  line-height: 1;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.landing-page p {
+  font-family: var(--font-nunito), 'Nunito', sans-serif;
+  font-size: 1.1rem;
+  line-height: 1.5;
+}
+
+/* ===== Navigation ===== */
+.landing-nav {
+  position: sticky;
+  top: 0;
+  z-index: 99;
+  padding: 1.25rem clamp(1.5rem, 5vw, 3.5rem);
+  border-bottom-left-radius: 1.5rem;
+  border-bottom-right-radius: 1.5rem;
+  background-color: var(--color-surface-container-lowest);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  transition: box-shadow 300ms ease;
+}
+
+.landing-nav:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+.landing-nav-link {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  font-weight: 500;
+  text-decoration: none;
+  color: var(--color-on-surface-variant);
+  border-radius: 0.5rem;
+  transition: color 200ms ease, background-color 200ms ease;
+}
+
+.landing-nav-link:hover {
+  color: var(--color-primary);
+  background-color: var(--color-surface-container);
+}
+
+.landing-nav-cta {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.7rem 1.75rem;
+  border-radius: 5rem;
+  background-color: var(--color-primary);
+  color: var(--color-on-primary);
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background-color 300ms ease, transform 200ms ease;
+}
+
+.landing-nav-cta:hover {
+  background-color: var(--color-surface-tint);
+  transform: translateY(-1px);
+}
+
+/* ===== Container ===== */
+.landing-container {
+  max-width: 1920px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: clamp(1.5rem, 8vw, 10rem);
+  padding-right: clamp(1.5rem, 8vw, 10rem);
+}
+
+/* ===== Hero ===== */
+.landing-hero-header {
+  display: flex;
+  max-width: 48rem;
+  margin: 0 auto;
+  padding-top: clamp(3rem, 6vw, 6rem);
+  padding-bottom: 3rem;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1.25rem;
+}
+
+.landing-text-accent {
+  color: var(--color-secondary-container);
+}
+
+/* ===== Buttons ===== */
+.landing-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.8rem 2.25rem;
+  border: 2px solid var(--color-primary);
+  border-radius: 5rem;
+  background-color: transparent;
+  color: var(--color-on-surface);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 300ms ease;
+  text-decoration: none;
+  font-family: inherit;
+}
+
+.landing-btn:hover {
+  background-color: var(--color-primary);
+  color: var(--color-on-primary);
+  transform: translateY(-2px);
+}
+
+.landing-btn-filled {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.8rem 2.25rem;
+  border: 2px solid var(--color-primary);
+  border-radius: 5rem;
+  background-color: var(--color-primary);
+  color: var(--color-on-primary);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 300ms ease;
+  text-decoration: none;
+  font-family: inherit;
+}
+
+.landing-btn-filled:hover {
+  background-color: var(--color-surface-tint);
+  border-color: var(--color-surface-tint);
+  transform: translateY(-2px);
+}
+
+.landing-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.8rem 2.25rem;
+  border: 2px solid var(--color-secondary-container);
+  border-radius: 5rem;
+  background-color: var(--color-secondary);
+  color: var(--color-on-secondary);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 300ms ease;
+  text-decoration: none;
+  font-family: inherit;
+}
+
+.landing-btn-secondary:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+}
+
+.landing-btn--inverted {
+  border-color: var(--color-on-primary);
+  color: var(--color-on-primary);
+}
+
+.landing-btn--inverted:hover {
+  background-color: var(--color-on-primary);
+  color: var(--color-primary);
+}
+
+/* ===== Dynamic Hero Graphic ===== */
+.hero-graphic-dynamic {
+  display: flex;
+  height: clamp(22rem, 42vw, 52rem);
+  justify-content: center;
+  align-items: center;
+  gap: clamp(0.25rem, 0.55vw, 0.55rem);
+  padding: 0 2rem;
+  overflow: hidden;
+}
+
+.hero-dyn-shape {
+  min-width: clamp(4.5rem, 6.5vw, 8rem);
+  border-radius: 10rem;
+  background-color: var(--color-primary);
+  transition:
+    height 2.2s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 2.2s cubic-bezier(0.4, 0, 0.2, 1),
+    width 2.2s cubic-bezier(0.4, 0, 0.2, 1),
+    min-width 2.2s cubic-bezier(0.4, 0, 0.2, 1),
+    border-radius 2.2s cubic-bezier(0.4, 0, 0.2, 1),
+    background-color 0.3s ease;
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.hero-dyn-shape:hover {
+  filter: brightness(1.2);
+}
+
+.hero-dyn-shape--dot {
+  border-radius: 50%;
+}
+
+.hero-dyn-shape--flash {
+  background-color: var(--color-secondary-container) !important;
+  filter: brightness(1.1);
+}
+
+/* ===== Section Header (centered heading blocks) ===== */
+.landing-section-header {
+  display: flex;
+  max-width: 32rem;
+  margin: 0 auto 3rem;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.75rem;
+}
+
+/* ===== Pill Section Containers ===== */
+.landing-pill-section {
+  border-radius: clamp(2rem, 8vw, 50rem);
+  overflow: hidden;
+}
+
+.landing-pill-section--features {
+  padding: clamp(3rem, 8vw, 8rem) clamp(2rem, 5vw, 5rem) clamp(4rem, 10vw, 10rem);
+  background-color: var(--color-surface-container);
+  margin: 3rem auto;
+  max-width: 1920px;
+}
+
+.landing-pill-section--dark {
+  padding: clamp(4rem, 8vw, 10rem) clamp(2rem, 8vw, 10rem) clamp(5rem, 10vw, 14rem);
+  background-color: var(--color-primary);
+  color: var(--color-on-primary);
+  margin: 3rem 0;
+  position: relative;
+}
+
+/* Decorative glow inside dark section */
+.landing-pill-section--dark::before {
+  content: '';
+  position: absolute;
+  top: -25%;
+  right: -10%;
+  width: 450px;
+  height: 450px;
+  background: var(--color-primary-container);
+  border-radius: 50%;
+  filter: blur(120px);
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+/* ===== Three Column / Pill Stats ===== */
+.landing-three-col-wrapper {
+  display: flex;
+  justify-content: center;
+  gap: clamp(1rem, 2vw, 1.5rem);
+  flex-wrap: wrap;
+  margin-top: 2rem;
+}
+
+.landing-pill-card {
+  position: relative;
+  display: flex;
+  width: clamp(14rem, 18vw, 18rem);
+  height: clamp(20rem, 26vw, 28rem);
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 25rem;
+  background-color: var(--color-surface-container);
+  text-align: center;
+  padding: 2rem 1.5rem;
+  transition: transform 400ms ease, box-shadow 400ms ease;
+  border: 1px solid var(--color-outline-variant);
+}
+
+.landing-pill-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.1);
+}
+
+/* ===== Feature Grid ===== */
+.landing-feature-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.landing-feature-card {
+  background-color: var(--color-surface-container-lowest);
+  border: 1px solid var(--color-outline-variant);
+  border-radius: 1.5rem;
+  padding: 2rem;
+  transition: transform 300ms ease, box-shadow 300ms ease;
+}
+
+.landing-feature-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+}
+
+/* ===== Two Column Layout ===== */
+.landing-two-col {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: clamp(2rem, 4vw, 4rem);
+}
+
+.landing-two-col--reverse {
+  flex-direction: row-reverse;
+}
+
+/* ===== Mockup Cards ===== */
+.landing-mockup-card {
+  background-color: var(--color-surface-container-lowest);
+  border: 1px solid var(--color-outline-variant);
+  border-radius: 1.25rem;
+  padding: 1.5rem;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+  transition: transform 400ms ease, box-shadow 400ms ease;
+}
+
+.landing-mockup-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
+}
+
+/* ===== Pricing Cards ===== */
+.landing-pricing-card {
+  background-color: var(--color-surface-container-lowest);
+  border: 1px solid var(--color-outline-variant);
+  border-radius: 2rem;
+  padding: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  transition: transform 300ms ease, box-shadow 300ms ease;
+}
+
+.landing-pricing-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+}
+
+.landing-pricing-card--featured {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  color: var(--color-on-primary);
+  transform: translateY(-0.5rem);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.15);
+}
+
+.landing-pricing-card--featured:hover {
+  transform: translateY(-12px);
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.2);
+}
+
+/* ===== Animations ===== */
+@keyframes landing-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+
+@keyframes landing-fade-in-up {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.landing-float {
+  animation: landing-float 5s ease-in-out infinite;
+}
+
+.landing-fade-in {
+  animation: landing-fade-in-up 0.8s ease-out both;
+}
+
+/* ===== Responsive ===== */
+@media screen and (max-width: 1024px) {
+  .landing-feature-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .landing-two-col,
+  .landing-two-col--reverse {
+    flex-direction: column;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .landing-nav {
+    padding: 1rem 1.25rem;
+    border-bottom-left-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+  }
+
+  .landing-feature-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .landing-three-col-wrapper {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .landing-pill-card {
+    width: 100%;
+    max-width: 18rem;
+    height: auto;
+    min-height: 14rem;
+    border-radius: 3rem;
+  }
+
+  .landing-footer {
+    border-radius: 0;
+  }
+
+  .hero-graphic-dynamic {
+    gap: 0.2rem;
+    height: clamp(16rem, 35vw, 26rem);
+  }
+
+  .hero-dyn-shape {
+    min-width: 2.2rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .landing-hero-header {
+    padding-top: 2.5rem;
+    padding-bottom: 1.5rem;
+  }
+
+  .landing-pill-section--features {
+    border-radius: 2rem;
+    padding: 2.5rem 1.25rem 3rem;
+  }
+
+  .landing-pill-section--dark {
+    border-radius: 2rem;
+    padding: 3rem 1.5rem 4rem;
+  }
+}
+
+/* ===== Marquee Section ===== */
+.landing-marquee-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  overflow: hidden;
+  width: 100%;
+}
+
+.landing-marquee-row {
+  display: flex;
+  gap: 0.5rem;
+  width: max-content;
+  white-space: nowrap;
+}
+
+.landing-marquee-content {
+  display: flex;
+  gap: 1rem;
+  /* Default rows 1 & 3 now move right */
+  animation: marquee-reverse 35s linear infinite;
+}
+
+.landing-marquee-row--reverse .landing-marquee-content {
+  /* Row 2 (reverse) now moves left */
+  animation: marquee 30s linear infinite;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(-100% - 1rem));
+  }
+}
+
+@keyframes marquee-reverse {
+  0% {
+    transform: translateX(calc(-100% - 1rem));
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.landing-marquee-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50rem;
+  padding: 1.75rem 4rem;
+  font-size: 2rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  height: 7rem;
+  transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+.landing-marquee-pill:hover {
+  transform: scale(1.02);
+}
+
+.landing-marquee-pill--outline {
+  border: 2px solid var(--color-primary);
+  color: var(--color-on-surface);
+  background: transparent;
+}
+
+.landing-marquee-pill--outline:hover {
+  background-color: #C4A882; /* Tertiary for subtle highlight */
+  border-color: #C4A882;
+  color: #1A2E2E; /* Neutral for text */
+}
+
+.landing-marquee-pill--filled {
+  background-color: var(--color-primary);
+  color: var(--color-on-primary);
+}
+
+.landing-marquee-pill--accent {
+  background-color: var(--color-secondary-container);
+  border: 2px solid var(--color-secondary-container);
+  color: var(--color-on-secondary-container);
+}
+
+.landing-marquee-pill--empty {
+  border: 2px solid var(--color-primary);
+  background: transparent;
+  width: 7rem;
+  padding: 0;
+  border-radius: 50%;
+}
+.landing-marquee-pill--empty:hover {
+  background-color: #C4A882;
+  border-color: #C4A882;
+}
+

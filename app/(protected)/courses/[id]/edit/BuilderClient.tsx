@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useRef, useCallback } from 'react'
+import { useState, useRef, useCallback, useEffect } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { 
@@ -22,6 +22,7 @@ export function BuilderClient({
   initialModules: ModuleWithFiles[]
 }) {
   const router = useRouter()
+  const moduleManagerRef = useRef<{ addExternalFile: (file: any) => void } | null>(null)
   const supabase = getSupabaseBrowserClient()
 
   // --- Course State ---
@@ -58,6 +59,56 @@ export function BuilderClient({
   // --- Preview Modal State ---
   const [showPreview, setShowPreview] = useState(false)
 
+  // --- Helpers ---
+  const getOrCreateFirstModule = async (): Promise<string | null> => {
+    const { data: existingModules } = await supabase
+      .from('modules')
+      .select('id')
+      .eq('course_id', initialCourse.id)
+      .order('position', { ascending: true })
+      .limit(1)
+
+    if (existingModules && existingModules.length > 0) {
+      return existingModules[0].id
+    }
+
+    // Auto-create a default module
+    const { data: newModule } = await supabase
+      .from('modules')
+      .insert({ course_id: initialCourse.id, title: 'Course Files', position: 0 })
+      .select('id')
+      .single()
+
+    return newModule?.id ?? null
+  }
+
+  const addFileToModuleAndSync = async (moduleId: string, fileName: string, fileUrl: string, fileType: 'pdf' | 'video', fileSize: number) => {
+    // Get current max position in this module
+    const { data: existing } = await supabase
+      .from('module_files')
+      .select('position')
+      .eq('module_id', moduleId)
+      .order('position', { ascending: false })
+      .limit(1)
+
+    const position = existing && existing.length > 0 ? existing[0].position + 1 : 0
+
+    const { data: fileRow, error } = await supabase.from('module_files').insert({
+      module_id: moduleId,
+      course_id: initialCourse.id,
+      name: fileName,
+      file_url: fileUrl,
+      file_type: fileType,
+      file_size: fileSize,
+      position,
+    }).select().single()
+
+    // Directly update ModuleManager state so it appears instantly
+    if (fileRow && !error) {
+      moduleManagerRef.current?.addExternalFile(fileRow)
+    }
+  }
+
   // --- Actions ---
   const handlePdfUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
@@ -67,11 +118,11 @@ export function BuilderClient({
     setPdfUploadProgress(10)
 
     try {
-      const fileName = `${initialCourse.id}-${Date.now()}.pdf`
+      const fileName = `${initialCourse.user_id}/${initialCourse.id}-${Date.now()}.pdf`
       
       const { error: uploadError } = await supabase.storage
         .from('pdfs')
-        .upload(fileName, file)
+        .upload(fileName, file, { upsert: true })
         
       setPdfUploadProgress(50)
       if (uploadError) throw uploadError
@@ -84,7 +135,15 @@ export function BuilderClient({
       if (signedError) throw signedError
 
       setPdfUploadProgress(100)
-      setPdfUrl(signedData.signedUrl)
+
+      // Add to the left-panel module file tree (instant update)
+      const moduleId = await getOrCreateFirstModule()
+      if (moduleId) {
+        await addFileToModuleAndSync(moduleId, file.name, signedData.signedUrl, 'pdf', file.size)
+      }
+
+      // Don't store on right panel — left panel is the source of truth
+      setPdfUrl(null)
     } catch (err) {
       alert(`Failed to upload PDF: ${(err as Error).message}`)
     } finally {
@@ -111,7 +170,7 @@ export function BuilderClient({
     setVideoUploadError(null)
 
     try {
-      const fileName = `${initialCourse.user_id}/${initialCourse.id}/lesson.mp4`
+      const fileName = `${initialCourse.user_id}/${initialCourse.id}/${Date.now()}-${file.name}`
       
       const { error: uploadError } = await supabase.storage
         .from('videos')
@@ -130,14 +189,15 @@ export function BuilderClient({
       setVideoUploadProgress(100)
       
       const newVideoUrl = signedData.signedUrl
-      const { error: updateError } = await supabase
-        .from('courses')
-        .update({ video_url: newVideoUrl })
-        .eq('id', initialCourse.id)
 
-      if (updateError) throw updateError
-      
-      setVideoUrl(newVideoUrl)
+      // Add to the left-panel module file tree (instant update)
+      const moduleId = await getOrCreateFirstModule()
+      if (moduleId) {
+        await addFileToModuleAndSync(moduleId, file.name, newVideoUrl, 'video', file.size)
+      }
+
+      // Don't store on right panel — left panel is the source of truth
+      setVideoUrl(null)
     } catch {
       setVideoUploadError("Upload failed. Try again.")
     } finally {
@@ -376,8 +436,12 @@ export function BuilderClient({
         
         {/* Left Panel: Course Outline Tree */}
         <aside className="w-80 border-r border-[#E8E0D5] bg-surface-container-lowest flex flex-col h-full flex-shrink-0 z-20">
-          <div className="flex-1 min-h-0 overflow-hidden">
+          <div className="p-4 border-b border-[#E8E0D5] bg-white flex-shrink-0">
+            <h2 className="font-label-md text-label-md text-primary tracking-wide">COURSE OUTLINE</h2>
+          </div>
+          <div className="flex-1 min-h-0 overflow-y-auto">
             <ModuleManager 
+              ref={moduleManagerRef}
               courseId={initialCourse.id} 
               userId={initialCourse.user_id}
               initialModules={initialModules}
@@ -489,48 +553,32 @@ export function BuilderClient({
           </div>
           <div className="flex-1 overflow-y-auto custom-scroll p-6 space-y-8">
             
-            {/* Course Material (PDF) */}
+            {/* Quick Upload — files go straight to the left panel */}
             <div className="space-y-3">
-              <label className="block font-label-md text-label-md text-on-surface">Course Material (PDF)</label>
-              {pdfUrl ? (
-                <div className="flex flex-col gap-2 p-3 bg-surface-container-low border border-[#E8E0D5] rounded-lg">
-                  <div className="flex items-center gap-2 truncate">
-                    <span className="text-xl">📄</span>
-                    <a href={pdfUrl} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline truncate text-sm">
-                      {pdfUrl.split('/').pop()?.split('?')[0] || 'course_material.pdf'}
-                    </a>
+              <label className="block font-label-md text-label-md text-on-surface">Add PDF to Modules</label>
+              <div className="border-2 border-dashed border-[#E8E0D5] rounded-xl p-4 flex flex-col items-center justify-center text-center hover:border-primary/50 hover:bg-surface transition-colors cursor-pointer">
+                {isUploadingPdf ? (
+                  <div className="flex flex-col items-center gap-2 w-full">
+                    <div className="w-5 h-5 border-2 border-primary border-t-transparent rounded-full animate-spin"></div>
+                    <p className="text-xs text-outline-variant">Uploading {pdfUploadProgress}%</p>
                   </div>
-                  <button 
-                    onClick={() => setPdfUrl(null)} 
-                    className="text-xs text-error hover:text-error/80 px-2 py-1 self-start"
-                  >
-                    Remove PDF
-                  </button>
-                </div>
-              ) : (
-                <div className="border-2 border-dashed border-[#E8E0D5] rounded-xl p-4 flex flex-col items-center justify-center text-center hover:border-primary/50 hover:bg-surface transition-colors cursor-pointer">
-                  {isUploadingPdf ? (
-                    <div className="flex flex-col items-center gap-2 w-full">
-                      <div className="w-5 h-5 border-2 border-primary border-t-transparent rounded-full animate-spin"></div>
-                      <p className="text-xs text-outline-variant">Uploading {pdfUploadProgress}%</p>
-                    </div>
-                  ) : (
-                    <>
-                      <input 
-                        type="file" 
-                        accept=".pdf" 
-                        id="pdf-upload" 
-                        className="hidden" 
-                        onChange={handlePdfUpload} 
-                      />
-                      <label htmlFor="pdf-upload" className="cursor-pointer flex flex-col items-center gap-2 w-full">
-                        <MdUpload className="text-xl text-outline-variant" />
-                        <span className="text-label-sm text-primary font-medium">Upload PDF</span>
-                      </label>
-                    </>
-                  )}
-                </div>
-              )}
+                ) : (
+                  <>
+                    <input 
+                      type="file" 
+                      accept=".pdf" 
+                      id="pdf-upload" 
+                      className="hidden" 
+                      onChange={handlePdfUpload} 
+                    />
+                    <label htmlFor="pdf-upload" className="cursor-pointer flex flex-col items-center gap-2 w-full">
+                      <MdUpload className="text-xl text-outline-variant" />
+                      <span className="text-label-sm text-primary font-medium">Upload PDF</span>
+                      <span className="text-xs text-outline-variant">Appears in Course Outline →</span>
+                    </label>
+                  </>
+                )}
+              </div>
             </div>
 
             {/* Visibility */}
@@ -562,82 +610,39 @@ export function BuilderClient({
               </select>
             </div>
 
-            {/* Course Video Upload */}
+            {/* Quick Video Upload — files go straight to left panel */}
             <div className="space-y-3">
-              <label className="block font-label-md text-label-md text-on-surface">Course Video</label>
-              {videoUrl ? (
-                <div className="flex flex-col gap-2">
-                  <video 
-                    src={videoUrl} 
-                    className="w-full h-[140px] object-cover rounded-xl border border-[#E8E0D5]" 
-                    controls 
-                    muted 
-                  />
-                  <div className="flex flex-col gap-1">
-                    <span className="text-sm font-medium text-on-surface truncate">
-                      {videoUrl.split('/').pop()?.split('?')[0]?.substring(0, 24)}...
-                    </span>
-                    <div className="flex gap-4">
-                      <label htmlFor="video-replace" className="text-xs text-primary hover:underline cursor-pointer">
-                        Replace Video
-                      </label>
-                      <input 
-                        type="file" 
-                        accept="video/mp4,video/quicktime,video/webm" 
-                        id="video-replace" 
-                        className="hidden" 
-                        onChange={handleVideoUpload} 
-                      />
-                      <button 
-                        onClick={handleRemoveVideo} 
-                        className="text-xs text-error hover:underline"
-                      >
-                        Remove Video
-                      </button>
-                    </div>
+              <label className="block font-label-md text-label-md text-on-surface">Add Video to Modules</label>
+              <div className="border-2 border-dashed border-[#E8E0D5] rounded-xl p-6 flex flex-col items-center justify-center text-center hover:border-primary/50 hover:bg-surface transition-colors cursor-pointer group">
+                {isUploadingVideo ? (
+                  <div className="flex flex-col items-center gap-2 w-full">
+                    <div className="w-5 h-5 border-2 border-primary border-t-transparent rounded-full animate-spin"></div>
+                    <p className="text-xs text-outline-variant">Uploading {videoUploadProgress}%</p>
                   </div>
+                ) : (
+                  <>
+                    <input 
+                      type="file" 
+                      accept="video/mp4,video/quicktime,video/webm" 
+                      id="video-upload" 
+                      className="hidden" 
+                      onChange={handleVideoUpload} 
+                    />
+                    <label htmlFor="video-upload" className="cursor-pointer flex flex-col items-center gap-2 w-full">
+                      <span className="text-3xl text-outline-variant group-hover:text-primary transition-colors">▶</span>
+                      <span className="text-label-md text-primary font-medium mt-2">Upload Video</span>
+                      <span className="text-xs text-outline-variant">Appears in Course Outline →</span>
+                    </label>
+                  </>
+                )}
+              </div>
+              {videoUploadError && (
+                <div className="flex items-center justify-between bg-red-50 text-red-600 text-xs px-3 py-2 rounded">
+                  <span>{videoUploadError}</span>
+                  <label htmlFor="video-upload" className="cursor-pointer font-medium hover:underline">
+                    Try Again
+                  </label>
                 </div>
-              ) : (
-                <>
-                  <div className="border-2 border-dashed border-[#E8E0D5] rounded-xl p-6 flex flex-col items-center justify-center text-center hover:border-primary/50 hover:bg-surface transition-colors cursor-pointer group">
-                    {isUploadingVideo ? (
-                      <div className="flex flex-col items-center gap-2 w-full">
-                        <div className="w-5 h-5 border-2 border-primary border-t-transparent rounded-full animate-spin"></div>
-                        <p className="text-xs text-outline-variant">Uploading {videoUploadProgress}%</p>
-                      </div>
-                    ) : (
-                      <>
-                        <input 
-                          type="file" 
-                          accept="video/mp4,video/quicktime,video/webm" 
-                          id="video-upload" 
-                          className="hidden" 
-                          onChange={handleVideoUpload} 
-                        />
-                        <label htmlFor="video-upload" className="cursor-pointer flex flex-col items-center gap-2 w-full">
-                          <span className="text-3xl text-outline-variant group-hover:text-primary transition-colors">▶</span>
-                          <span className="text-label-md text-primary font-medium mt-2">Upload Video</span>
-                          <span className="text-xs text-outline-variant">MP4, MOV, WebM (max 2GB)</span>
-                        </label>
-                      </>
-                    )}
-                  </div>
-                  {videoUploadError && (
-                    <div className="flex items-center justify-between bg-red-50 text-red-600 text-xs px-3 py-2 rounded">
-                      <span>{videoUploadError}</span>
-                      <label htmlFor="video-upload-retry" className="cursor-pointer font-medium hover:underline">
-                        Try Again
-                      </label>
-                      <input 
-                        type="file" 
-                        accept="video/mp4,video/quicktime,video/webm" 
-                        id="video-upload-retry" 
-                        className="hidden" 
-                        onChange={handleVideoUpload} 
-                      />
-                    </div>
-                  )}
-                </>
               )}
             </div>
 
