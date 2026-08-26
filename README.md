@@ -18,7 +18,30 @@ A modern full-stack learning platform built with **Next.js, React, TypeScript, a
 ---
 ## 🎥 Project Demo
 
-[▶️ **Watch Bloom Demo**](.public/Bloom E learning Platform-compressed.mp4)
+[▶️ **Watch Bloom Demo**](<div align="center">
+
+<img src="./public/Screenshot%202026-08-26%20203145.png" alt="Bloom" width="260"/>
+
+### Full-Stack Educational Platform
+
+A modern full-stack learning platform built with **Next.js, React, TypeScript, and Supabase**.
+
+<br/>
+
+![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=next.js&logoColor=white)
+![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
+![Supabase](https://img.shields.io/badge/Supabase-181818?style=for-the-badge&logo=supabase&logoColor=3ECF8E)
+
+</div>
+
+---
+
+## 🎥 Project Demo
+
+[▶️ **Watch Bloom Demo**](./public/Bloom%20E%20learning%20Platform-compressed.mp4)
+
+---
 
 # 🌱 About Bloom
 
