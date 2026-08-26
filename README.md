@@ -18,7 +18,7 @@ A modern full-stack learning platform built with **Next.js, React, TypeScript, a
 ---
 ## 🎥 Project Demo
 
-[▶️ **Watch Bloom Demo**](./docs/demo.mp4)
+[▶️ **Watch Bloom Demo**](.public/Bloom E learning Platform-compressed.mp4)
 
 # 🌱 About Bloom
 
