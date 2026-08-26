@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="./assets/bloom-logo.png" alt="Bloom" width="260"/>
+<img src="public/Screenshot 2026-08-26 203145.png" alt="Bloom" width="260"/>
 
 ### Full-Stack Educational Platform
 
