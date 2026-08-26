@@ -16,6 +16,9 @@ A modern full-stack learning platform built with **Next.js, React, TypeScript, a
 </div>
 
 ---
+## 🎥 Project Demo
+
+[▶️ **Watch Bloom Demo**](./docs/demo.mp4)
 
 # 🌱 About Bloom
 
